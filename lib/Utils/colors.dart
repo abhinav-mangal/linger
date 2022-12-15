@@ -1,0 +1,47 @@
+class ColorConstants {
+  static const String green = "#0D900E";
+  static const String activeQuizColors = "#04BEA8";
+  static const String inactiveQuizColors = "#0486BE";
+  static const String inactiveColor = "#EBEBF5";
+  static const String titleBackgroundColors = "#EAEAEA";
+  static const String buttonBackgroundColorsGray = "#747480";
+  static const String greyBackgroundScreen = "#F7F8F9";
+  static const String inputFieldColor = "#D0CCC6";
+  static const String verifyFieldColor = "#ADCCED";
+  static const String libraryFieldColor = "#D9E6B8";
+  static const String courseFieldColor = "#D8E9A8";
+  static const String staryellow = "#FFD427";
+  static const String likeButton = "#E08984";
+  static const String textverifyFieldColor = "#007AFF";
+  static const String transparent = "#00000000";
+  static const String primary = "#008500";
+  static const String white = "#FFFFFF";
+  static const String lightGreen = "#d8e9a8";
+  static const String grey = "#8D8D8D";
+  static const String whitishgrey = "#F0F0F0";
+  static const String black = "#000000";
+  static const String greencolor = "#0d900d";
+  static const String systembluecolor = "#007AFF";
+  static const String systemredcolor = "#FF3B30";
+  static const String systemgreencolor = "#34C759";
+  static const String shadowcolor = "#051037";
+  static const String greyishcolor = "#767680";
+  static const String greenshadowcolor = "#4E9F3D";
+  static const String lightblueishcolor = "#07DAFE";
+
+  static const String darkcolor = "#272833";
+  static const String darkgreencolor = "#1E5128";
+  static const String lightgreycolor = "#F2F2F2";
+  static const String greycolor = "#3C3C43";
+  static const String bordercolor = "#E6E7E9";
+  static const String lightpurplecolor = "#8E2DE2";
+  static const String purplecolor = "#4A00E0";
+  static const String greybordercolor = "#787880";
+  static const String bordergreycolor = "#D0D0D0";
+  static const String greyicolor = "#242424";
+  static const String blueishcolor = "#7EB6FF";
+  static const String redpinkishcolor = "#FE07B9";
+  static const String systemorangecolor = "#FF6B00";
+  static const String redcolor = "#CF3333";
+  static const String lightOrange = "#FF9500";
+}

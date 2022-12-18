@@ -104,29 +104,29 @@ class _DrawerMenuScreensState extends State<DrawerMenuScreens> with baseclass {
                               size: 18.sp,
                             ),
                             true),
-                        Moredetails('Leaderboard 1.png', "Leaderboard", () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const LeaderBoardScreen()));
-                        },
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: getColorFromHex(ColorConstants.green),
-                              size: 18.sp,
-                            ),
-                            true),
-                        Moredetails('membership 1.png', "Membership", () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      const SubscriptionPlanScreen()));
-                        },
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: getColorFromHex(ColorConstants.green),
-                              size: 18.sp,
-                            ),
-                            true),
+                        // Moredetails('Leaderboard 1.png', "Leaderboard", () {
+                        //   Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (context) => const LeaderBoardScreen()));
+                        // },
+                        //     Icon(
+                        //       Icons.arrow_forward_ios,
+                        //       color: getColorFromHex(ColorConstants.green),
+                        //       size: 18.sp,
+                        //     ),
+                        //     true),
+                        // Moredetails('membership 1.png', "Membership", () {
+                        //   Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //           builder: (_) =>
+                        //               const SubscriptionPlanScreen()));
+                        // },
+                        //     Icon(
+                        //       Icons.arrow_forward_ios,
+                        //       color: getColorFromHex(ColorConstants.green),
+                        //       size: 18.sp,
+                        //     ),
+                        //     true),
                         Moredetails('achievement 1.png', "Achievements", () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
@@ -138,36 +138,36 @@ class _DrawerMenuScreensState extends State<DrawerMenuScreens> with baseclass {
                               size: 18.sp,
                             ),
                             true),
-                        Moredetails(
-                            'Reward 1.png',
-                            "Reward",
-                            () {},
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: getColorFromHex(ColorConstants.green),
-                              size: 18.sp,
-                            ),
-                            true),
-                        Moredetails('Refer 1.png', "Refer & Earn", () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const ReferEarnScreen()));
-                        },
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: getColorFromHex(ColorConstants.green),
-                              size: 18.sp,
-                            ),
-                            true),
-                        Moredetails('Wallet 1.png', "Wallet", () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const WalletScreen()));
-                        },
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: getColorFromHex(ColorConstants.green),
-                              size: 18.sp,
-                            ),
-                            true),
+                        // Moredetails(
+                        //     'Reward 1.png',
+                        //     "Reward",
+                        //     () {},
+                        //     Icon(
+                        //       Icons.arrow_forward_ios,
+                        //       color: getColorFromHex(ColorConstants.green),
+                        //       size: 18.sp,
+                        //     ),
+                        //     true),
+                        // Moredetails('Refer 1.png', "Refer & Earn", () {
+                        //   Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (context) => const ReferEarnScreen()));
+                        // },
+                        //     Icon(
+                        //       Icons.arrow_forward_ios,
+                        //       color: getColorFromHex(ColorConstants.green),
+                        //       size: 18.sp,
+                        //     ),
+                        //     true),
+                        // Moredetails('Wallet 1.png', "Wallet", () {
+                        //   Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (context) => const WalletScreen()));
+                        // },
+                        //     Icon(
+                        //       Icons.arrow_forward_ios,
+                        //       color: getColorFromHex(ColorConstants.green),
+                        //       size: 18.sp,
+                        //     ),
+                        //     true),
                         Moredetails('terms 1.png', "Terms & Condition", () {
                           navigateToWebScreen(
                               context,
@@ -193,16 +193,16 @@ class _DrawerMenuScreensState extends State<DrawerMenuScreens> with baseclass {
                               size: 18.sp,
                             ),
                             true),
-                        Moredetails(
-                            'setting 1.png',
-                            "Setting",
-                            () {},
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: getColorFromHex(ColorConstants.green),
-                              size: 18.sp,
-                            ),
-                            true),
+                        // Moredetails(
+                        //     'setting 1.png',
+                        //     "Setting",
+                        //     () {},
+                        //     Icon(
+                        //       Icons.arrow_forward_ios,
+                        //       color: getColorFromHex(ColorConstants.green),
+                        //       size: 18.sp,
+                        //     ),
+                        //     true),
                         Moredetails('info 1.png', "About Us", () {
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (context) => const AboutUsScreen()));

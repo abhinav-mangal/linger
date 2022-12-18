@@ -337,6 +337,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  dotted_border:
+    dependency: "direct main"
+    description:
+      name: dotted_border
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0+3"
   email_validator:
     dependency: "direct main"
     description:
@@ -393,6 +400,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.4"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.2.4"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -654,7 +668,7 @@ packages:
     source: hosted
     version: "0.1.1"
   get:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: get
       url: "https://pub.dartlang.org"
@@ -667,6 +681,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.2.0"
+  get_storage:
+    dependency: "direct main"
+    description:
+      name: get_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   glob:
     dependency: transitive
     description:

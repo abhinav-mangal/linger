@@ -1,1 +1,1 @@
-const RazorpayApiKey = "rzp_test_SdGBahWtlKWMwb";
+const RazorpayApiKey = "rzp_live_zJKlbkI6Ojzuhn";

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:linger/cubits/profile_cubit/profile_cubit.dart';
 
 import '../../data/data_repository/app_repository.dart';
@@ -27,8 +28,9 @@ class SignInCubit extends Cubit<SignInState> {
       (l) {
         error(l.message);
       },
-      (r) {
+      (r) async {
         if (r != null) {
+          await GetStorage().write('token', r.token);
           success(r);
           return;
         }

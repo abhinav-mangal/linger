@@ -131,11 +131,11 @@ class _HomeScreenState extends State<HomeScreen>
                                     child: Row(children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      const MyCalendarScreen()));
+                                          // Navigator.push(
+                                          //     context,
+                                          //     MaterialPageRoute(
+                                          //         builder: (_) =>
+                                          //             const MyCalendarScreen()));
                                         },
                                         child: Container(
                                           height: 10.46.w,
@@ -422,178 +422,178 @@ class _HomeScreenState extends State<HomeScreen>
                       )),
                 ],
               ),
-              Container(
-                  margin: EdgeInsets.symmetric(horizontal: 4.w),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 2.13.h,
-                      ),
-                      Material(
-                        child: InkWell(
-                          // splashColor: ui.Color.fromARGB(255, 172, 169, 169),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => const AlQuranScreen()));
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        bottom: getH(10), top: getH(10)),
-                                    padding:
-                                        EdgeInsets.fromLTRB(0.w, 1.h, 0.w, 1.h),
-                                    width: 6.63.h,
-                                    height: 6.63.h,
-                                    decoration: BoxDecoration(
-                                      color: getColorFromHex(
-                                          ColorConstants.titleBackgroundColors),
-                                      borderRadius:
-                                          BorderRadius.circular(16.sp),
-                                    ),
-                                    child: Center(
-                                      child: Lottie.asset(
-                                          "assets/icons/Quran.json"),
-                                    ),
-                                  ),
-                                  CustomText(
-                                    textalign: TextAlign.center,
-                                    text: 'Al Quran',
-                                    familytype: 1,
-                                    textsize: 18.sp,
-                                    marginvalue: EdgeInsets.only(
-                                      left: 4.w,
-                                    ),
-                                    textcolor:
-                                        getColorFromHex(ColorConstants.black),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.chevron_right,
-                                color: getColorFromHex(ColorConstants.green),
-                                size: 22.sp,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Material(
-                        child: InkWell(
-                          // splashColor: ui.Color.fromARGB(255, 172, 169, 169),
-                          onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            // builder: (_) => const AlQuranScreen()));
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        bottom: getH(10), top: getH(10)),
-                                    padding: EdgeInsets.fromLTRB(
-                                        0.w, 0.7.h, 0.w, 0.7.h),
-                                    width: 6.63.h,
-                                    height: 6.63.h,
-                                    decoration: BoxDecoration(
-                                      color: getColorFromHex(
-                                          ColorConstants.titleBackgroundColors),
-                                      borderRadius:
-                                          BorderRadius.circular(16.sp),
-                                    ),
-                                    child:
-                                        Lottie.asset("assets/icons/Sukun.json"),
-                                  ),
-                                  CustomText(
-                                    textalign: TextAlign.center,
-                                    text: "Sukoon",
-                                    familytype: 1,
-                                    textsize: 18.sp,
-                                    marginvalue: EdgeInsets.only(
-                                      left: 4.w,
-                                    ),
-                                    textcolor:
-                                        getColorFromHex(ColorConstants.black),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.chevron_right,
-                                color: getColorFromHex(ColorConstants.green),
-                                size: 22.sp,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Material(
-                        child: InkWell(
-                          // splashColor: ui.Color.fromARGB(255, 172, 169, 169),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => FeedScreen()));
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        bottom: getH(10), top: getH(10)),
-                                    padding:
-                                        EdgeInsets.fromLTRB(0.w, 1.h, 0.w, 1.h),
-                                    width: 6.63.h,
-                                    height: 6.63.h,
-                                    decoration: BoxDecoration(
-                                      color: getColorFromHex(
-                                          ColorConstants.titleBackgroundColors),
-                                      borderRadius:
-                                          BorderRadius.circular(16.sp),
-                                    ),
-                                    child: Lottie.asset(
-                                        "assets/icons/Sunnat.json"),
-                                  ),
-                                  CustomText(
-                                    textalign: TextAlign.center,
-                                    text: "Sunnat",
-                                    familytype: 1,
-                                    textsize: 18.sp,
-                                    marginvalue: EdgeInsets.only(
-                                      left: 4.w,
-                                    ),
-                                    textcolor:
-                                        getColorFromHex(ColorConstants.black),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.chevron_right,
-                                color: getColorFromHex(ColorConstants.green),
-                                size: 22.sp,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                    ],
-                  )),
+              // Container(
+              //     margin: EdgeInsets.symmetric(horizontal: 4.w),
+              //     child: Column(
+              //       children: [
+              //         SizedBox(
+              //           height: 2.13.h,
+              //         ),
+              //         Material(
+              //           child: InkWell(
+              //             // splashColor: ui.Color.fromARGB(255, 172, 169, 169),
+              //             onTap: () {
+              //               Navigator.push(
+              //                   context,
+              //                   MaterialPageRoute(
+              //                       builder: (_) => const AlQuranScreen()));
+              //             },
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 Row(
+              //                   children: [
+              //                     Container(
+              //                       margin: EdgeInsets.only(
+              //                           bottom: getH(10), top: getH(10)),
+              //                       padding:
+              //                           EdgeInsets.fromLTRB(0.w, 1.h, 0.w, 1.h),
+              //                       width: 6.63.h,
+              //                       height: 6.63.h,
+              //                       decoration: BoxDecoration(
+              //                         color: getColorFromHex(
+              //                             ColorConstants.titleBackgroundColors),
+              //                         borderRadius:
+              //                             BorderRadius.circular(16.sp),
+              //                       ),
+              //                       child: Center(
+              //                         child: Lottie.asset(
+              //                             "assets/icons/Quran.json"),
+              //                       ),
+              //                     ),
+              //                     CustomText(
+              //                       textalign: TextAlign.center,
+              //                       text: 'Al Quran',
+              //                       familytype: 1,
+              //                       textsize: 18.sp,
+              //                       marginvalue: EdgeInsets.only(
+              //                         left: 4.w,
+              //                       ),
+              //                       textcolor:
+              //                           getColorFromHex(ColorConstants.black),
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 Icon(
+              //                   Icons.chevron_right,
+              //                   color: getColorFromHex(ColorConstants.green),
+              //                   size: 22.sp,
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //         Material(
+              //           child: InkWell(
+              //             // splashColor: ui.Color.fromARGB(255, 172, 169, 169),
+              //             onTap: () {
+              //               // Navigator.push(
+              //               //     context,
+              //               //     MaterialPageRoute(
+              //               // builder: (_) => const AlQuranScreen()));
+              //             },
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 Row(
+              //                   children: [
+              //                     Container(
+              //                       margin: EdgeInsets.only(
+              //                           bottom: getH(10), top: getH(10)),
+              //                       padding: EdgeInsets.fromLTRB(
+              //                           0.w, 0.7.h, 0.w, 0.7.h),
+              //                       width: 6.63.h,
+              //                       height: 6.63.h,
+              //                       decoration: BoxDecoration(
+              //                         color: getColorFromHex(
+              //                             ColorConstants.titleBackgroundColors),
+              //                         borderRadius:
+              //                             BorderRadius.circular(16.sp),
+              //                       ),
+              //                       child:
+              //                           Lottie.asset("assets/icons/Sukun.json"),
+              //                     ),
+              //                     CustomText(
+              //                       textalign: TextAlign.center,
+              //                       text: "Sukoon",
+              //                       familytype: 1,
+              //                       textsize: 18.sp,
+              //                       marginvalue: EdgeInsets.only(
+              //                         left: 4.w,
+              //                       ),
+              //                       textcolor:
+              //                           getColorFromHex(ColorConstants.black),
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 Icon(
+              //                   Icons.chevron_right,
+              //                   color: getColorFromHex(ColorConstants.green),
+              //                   size: 22.sp,
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //         Material(
+              //           child: InkWell(
+              //             // splashColor: ui.Color.fromARGB(255, 172, 169, 169),
+              //             onTap: () {
+              //               Navigator.push(
+              //                   context,
+              //                   MaterialPageRoute(
+              //                       builder: (_) => FeedScreen()));
+              //             },
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 Row(
+              //                   mainAxisAlignment: MainAxisAlignment.center,
+              //                   crossAxisAlignment: CrossAxisAlignment.center,
+              //                   children: [
+              //                     Container(
+              //                       margin: EdgeInsets.only(
+              //                           bottom: getH(10), top: getH(10)),
+              //                       padding:
+              //                           EdgeInsets.fromLTRB(0.w, 1.h, 0.w, 1.h),
+              //                       width: 6.63.h,
+              //                       height: 6.63.h,
+              //                       decoration: BoxDecoration(
+              //                         color: getColorFromHex(
+              //                             ColorConstants.titleBackgroundColors),
+              //                         borderRadius:
+              //                             BorderRadius.circular(16.sp),
+              //                       ),
+              //                       child: Lottie.asset(
+              //                           "assets/icons/Sunnat.json"),
+              //                     ),
+              //                     CustomText(
+              //                       textalign: TextAlign.center,
+              //                       text: "Sunnat",
+              //                       familytype: 1,
+              //                       textsize: 18.sp,
+              //                       marginvalue: EdgeInsets.only(
+              //                         left: 4.w,
+              //                       ),
+              //                       textcolor:
+              //                           getColorFromHex(ColorConstants.black),
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 Icon(
+              //                   Icons.chevron_right,
+              //                   color: getColorFromHex(ColorConstants.green),
+              //                   size: 22.sp,
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //         SizedBox(
+              //           height: 2.h,
+              //         ),
+              //       ],
+              //     )),
               homeRes != null
                   ? Container(
                       padding: EdgeInsets.fromLTRB(4.w, 1.h, 4.w, 1.h),
@@ -646,9 +646,11 @@ class _HomeScreenState extends State<HomeScreen>
                                         padding: EdgeInsets.all(2.w),
                                         margin:
                                             EdgeInsets.only(right: getW(10)),
-                                        decoration: const BoxDecoration(
-                                            color: Colors.grey,
-                                            shape: BoxShape.circle),
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(image: NetworkImage("${homeRes?.perOfTheDay![currentPage.value].profileImage}"))
+                                        ),
                                         // child: const Icon(
                                         //   Icons.calendar_today_outlined,
                                         //   color: Colors.blue,

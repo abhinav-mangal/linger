@@ -74,6 +74,10 @@ dependencies:
   stacked_services: ^0.8.6
   stacked: ^2.1.7
   sqflite: ^2.2.2
+  get: ^4.6.5
+  get_storage: ^2.0.3
+  file_picker: ^5.2.4
+  dotted_border: ^2.0.0+3
 
 
 dependency_overrides:

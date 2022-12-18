@@ -166,7 +166,7 @@ mixin PaymentMixin<T extends StatefulWidget> on State<T> {
       'amount': "${(num.parse(amount) * 100)}",
       'name': 'Linger',
       'description': desc ?? 'Pay for product purchase',
-      'order_id': '${data.id}',
+      // 'order_id': '${data.id}',
       'prefill': {
         'contact': '$mno',
         'email': '$email',

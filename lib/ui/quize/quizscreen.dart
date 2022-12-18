@@ -1,6 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:get/get.dart';
 import 'package:linger/Basepackage/baseclass.dart';
+import 'package:linger/Controller/profile_controller.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({Key? key}) : super(key: key);
@@ -89,236 +93,253 @@ class _QuizScreenState extends State<QuizScreen> with baseclass {
                     fit: BoxFit.cover,
                     image: AssetImage("assets/images/game_screen.png"))),
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 24.0, top: 40),
-                child: GestureDetector(
-                  onTap: () => showDialog(
-                      context: context,
-                      builder: (context) {
-                        return Dialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Stack(children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image.asset('assets/images/quiz_frame_03.png'),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
-                                  child: Text(
-                                    "Ramazan-Night of Destiny - 2",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
+          GetBuilder<ProfileController>(
+            init: ProfileController(),
+            initState: (_) {},
+            builder: (controller) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24.0, top: 50),
+                    child: GestureDetector(
+                      onTap: () => showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Stack(children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Image.asset(
+                                        'assets/images/quiz_frame_03.png'),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 16),
+                                      child: Text(
+                                        "Ramazan-Night of Destiny - 2",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
-                                  child: Text(
-                                    "The Quran is divided into Surahs and further divided into Ayahs . The real translation of the word Ayah is actually .",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 12,
+                                    const SizedBox(height: 10),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 16),
+                                      child: Text(
+                                        "The Quran is divided into Surahs and further divided into Ayahs . The real translation of the word Ayah is actually .",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    const SizedBox(height: 10),
+                                    FloatingActionButton.extended(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        backgroundColor:
+                                            const Color(0xFF07DAFE),
+                                        elevation: 0,
+                                        label: const Text('Close')),
+                                    const SizedBox(height: 10),
+                                  ],
                                 ),
-                                const SizedBox(height: 10),
-                                FloatingActionButton.extended(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    backgroundColor: const Color(0xFF07DAFE),
-                                    elevation: 0,
-                                    label: const Text('Close')),
-                                const SizedBox(height: 10),
-                              ],
-                            ),
-                            const Positioned(
-                                top: 100,
-                                left: 20,
-                                child: Text(
-                                  "25/01/2023",
-                                  style: TextStyle(
-                                      // fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                )),
-                            const Positioned(
-                                top: 100,
-                                left: 220,
-                                child: Text(
-                                  "04 : 00 PM",
-                                  style: TextStyle(
-                                      // fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ))
-                          ]),
-                        );
-                      }),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: const [
-                          Text(
-                            "Season-1",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          RotatedBox(
-                            quarterTurns: 75,
-                            child: Icon(
-                              Icons.arrow_back_ios_new,
-                              color: Colors.grey,
-                              size: 16,
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: const [
-                          Text(
-                            "Ramazan-Night of Destiny",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: const [
-                          Icon(Icons.lock_outline,
-                              color: Colors.white, size: 12),
-                          Text(
-                            " 04 : 00 : 45",
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              const CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.white,
-                child: CircleAvatar(
-                  radius: 35,
-                  foregroundImage: AssetImage("assets/images/nancy.png"),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "Hello...",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              const SizedBox(height: 5),
-              const Text(
-                "Nancy Dreu",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Container(
-                  height: size.height / 4.5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xFF7A98F2),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: DottedBorder(
-                        dashPattern: const [6, 3, 0, 3],
-                        strokeWidth: 2,
-                        color: Colors.white,
-                        child: Container(
-                          color: Colors.white.withOpacity(0.5),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    "Take First Step",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+                                const Positioned(
+                                    top: 100,
+                                    left: 20,
+                                    child: Text(
+                                      "25/01/2023",
+                                      style: TextStyle(
+                                          // fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    )),
+                                const Positioned(
+                                    top: 100,
+                                    left: 220,
+                                    child: Text(
+                                      "04 : 00 PM",
+                                      style: TextStyle(
+                                          // fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ))
+                              ]),
+                            );
+                          }),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: const [
+                              Text(
+                                "Season-1",
+                                style: TextStyle(color: Colors.grey),
                               ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    "Check below to start your\n first task.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
+                              RotatedBox(
+                                quarterTurns: 75,
+                                child: Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: Colors.grey,
+                                  size: 16,
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: const [
+                              Text(
+                                "Ramazan-Month of Maghfirat",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               ),
                             ],
                           ),
-                        )),
+                          Row(
+                            children: [
+                              const Icon(Icons.lock_outline,
+                                  color: Colors.white, size: 12),
+                              CountdownTimer(
+                                endTime: DateTime.parse("2023-02-27").minute,
+                                textStyle: const TextStyle(color: Colors.white),
+                              )
+                              // Text(
+                              //   " 20D : 04 : 00 : 45",
+                              //   style: TextStyle(
+                              //       fontSize: 12,
+                              //       fontWeight: FontWeight.bold,
+                              //       color: Colors.white),
+                              // ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24.0, top: 12, bottom: 12),
-                child: Row(
-                  children: const [
-                    Text(
-                      "Take a Quiz",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                  const SizedBox(height: 30),
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white,
+                    child: CircleAvatar(
+                      radius: 25,
+                      foregroundImage: CachedNetworkImageProvider(
+                          controller.profileData!.user!.image ?? ""),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Assalamualaikum",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    controller.profileData!.user!.name!,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Container(
+                      height: size.height / 4.5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xFF7A98F2),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: DottedBorder(
+                            dashPattern: const [6, 3, 0, 3],
+                            strokeWidth: 2,
+                            color: Colors.white,
+                            child: Container(
+                              color: Colors.white.withOpacity(0.5),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        "Take First Step",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        "Check below to start your\n first task.",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Image.asset('assets/images/quiz_frame_01.png'),
-              Padding(
-                padding: const EdgeInsets.only(left: 24.0, top: 12, bottom: 12),
-                child: Row(
-                  children: const [
-                    Text(
-                      "Take a Challange",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 24.0, top: 12, bottom: 12),
+                    child: Row(
+                      children: const [
+                        Text(
+                          "Take a Quiz",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Image.asset('assets/images/quiz_frame_02.png'),
-              const SizedBox(height: 100)
-            ],
+                  ),
+                  Image.asset('assets/images/quiz_frame_01.png'),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 24.0, top: 12, bottom: 12),
+                    child: Row(
+                      children: const [
+                        Text(
+                          "Take a Challange",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Image.asset('assets/images/quiz_frame_02.png'),
+                  const SizedBox(height: 100)
+                ],
+              );
+            },
           ),
-          Positioned(
-            top: size.height / 1.9,
-            left: size.width / 2.5,
-            child: Image.asset('assets/images/quiz_arrow_down.png'),
-          ),
+          // Positioned(
+          //   top: size.height / 1.9,
+          //   left: size.width / 2.5,
+          //   child: Image.asset('assets/images/quiz_arrow_down.png'),
+          // ),
         ],
       ),
     ));

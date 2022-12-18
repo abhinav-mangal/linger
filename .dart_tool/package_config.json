@@ -428,6 +428,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_countdown_timer",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_countdown_timer-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_facebook_auth",
       "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_facebook_auth-4.4.1+1",
       "packageUri": "lib/",
@@ -1394,7 +1400,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-12-16T21:05:16.098524Z",
+  "generated": "2022-12-18T12:28:34.539941Z",
   "generator": "pub",
-  "generatorVersion": "2.18.4"
+  "generatorVersion": "2.18.6"
 }

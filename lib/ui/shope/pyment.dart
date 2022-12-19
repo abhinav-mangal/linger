@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:linger/Utils/flushbar_notification.dart';
 //import 'package:razorpay_web/razorpay_flutter_web.dart';
 //import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -33,7 +34,7 @@ mixin PaymentMixin<T extends StatefulWidget> on State<T> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     final theme = Theme.of(context);
-    if (response.paymentId == null || response.orderId == null) {
+    if (response.paymentId == null) {
       FlushBarNotification.showSnack(
         title: "Payment failed!",
       );
@@ -52,6 +53,8 @@ mixin PaymentMixin<T extends StatefulWidget> on State<T> {
             "${shopcubit.state.orderSummaryModel?.data?.shippingAmount}",
         subTotal: "${shopcubit.state.orderSummaryModel?.data?.subTotal}",
         total: "${shopcubit.state.orderSummaryModel?.data?.total}",
+        paymentId: response.paymentId,
+        couponCode: GetStorage().read('couponCode'),
       );
       Navigator.push(
           context,

@@ -186,6 +186,8 @@ abstract class AppRepository {
     String? subTotal,
     String? total,
     String? paymentStatus,
+    String? paymentId,
+    String? couponCode,
   });
 
   Future<Either<Failure, OrderSummaryModel?>> getOrderSummary({

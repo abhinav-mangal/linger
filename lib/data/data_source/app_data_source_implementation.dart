@@ -550,14 +550,17 @@ class AppDataSourceImple extends AppDataSource {
   }
 
   @override
-  Future makeOrder(
-      {required String token,
-      address,
-      String? paymentMethod,
-      String? shippingTotal,
-      String? subTotal,
-      String? total,
-      String? paymentStatus}) async {
+  Future makeOrder({
+    required String token,
+    address,
+    String? paymentMethod,
+    String? shippingTotal,
+    String? subTotal,
+    String? total,
+    String? paymentStatus,
+    String? paymentId,
+    String? couponCode,
+  }) async {
     final data = ({
       "address": address,
       "payment_method": paymentMethod,
@@ -565,6 +568,8 @@ class AppDataSourceImple extends AppDataSource {
       "subtotal": subTotal,
       "total": total,
       "payment_status": paymentStatus,
+      "razorpay_payment_id": paymentId,
+      "coupon_code": couponCode,
     });
 
     return await apiProvider.post(

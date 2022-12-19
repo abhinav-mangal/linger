@@ -628,13 +628,17 @@ class ShopCubit extends Cubit<ShopState> {
     return success;
   }
 
-  Future<bool?> createOrder(BuildContext context,
-      {required String address,
-      String? paymentMethod,
-      String? shippingTotal,
-      String? subTotal,
-      String? total,
-      String? paymentStatus}) async {
+  Future<bool?> createOrder(
+    BuildContext context, {
+    required String address,
+    String? paymentMethod,
+    String? shippingTotal,
+    String? subTotal,
+    String? total,
+    String? paymentStatus,
+    String? paymentId,
+    String? couponCode,
+  }) async {
     emit(state.copyWith(
       processing: true,
     ));
@@ -648,6 +652,8 @@ class ShopCubit extends Cubit<ShopState> {
       subTotal: subTotal,
       total: total,
       paymentStatus: paymentStatus,
+      paymentId: paymentId,
+      couponCode: couponCode
     );
 
     await getCartData();

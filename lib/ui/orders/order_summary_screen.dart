@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:linger/cubits/profile_cubit/profile_cubit.dart';
 import 'package:linger/cubits/shop/shop_cubit.dart';
 import 'package:linger/ui/orders/view/order_item_view.dart';
@@ -14,10 +16,12 @@ import 'package:linger/ui/widgets/primary_button.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Basepackage/baseclass.dart';
+import '../../Controller/coupon_controller.dart';
 import '../../Utils/CommonUtils.dart';
 import '../../Utils/colors.dart';
 import '../../Utils/customText.dart';
 
+import '../../Utils/flushbar_notification.dart';
 import '../../common_screen/successParam.dart';
 import '../../locator.dart';
 import '../../router/app_routes.gr.dart';
@@ -36,8 +40,11 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
   String text = "";
   int maxLength = 200;
   TextEditingController controller = TextEditingController();
+  TextEditingController couponController = TextEditingController();
   late final ShopCubit shopCubit;
   late final ProfileCubit profileCubit;
+
+  int? couponAmount;
 
   @override
   void initState() {
@@ -162,8 +169,11 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
             final address = state.orderSummaryModel?.data?.address;
             final shippingAmount =
                 state.orderSummaryModel?.data?.shippingAmount;
-            final totalAmount = state.orderSummaryModel?.data?.total;
+            int? totalAmount = state.orderSummaryModel?.data?.total;
             final subTotalAmount = state.orderSummaryModel?.data?.subTotal;
+            if (couponAmount != null) {
+              totalAmount = totalAmount! - couponAmount!;
+            }
             return SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -421,6 +431,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                         Padding(
                           padding: EdgeInsets.fromLTRB(2.w, 1.h, 2.w, 1.h),
                           child: TextFormField(
+                            controller: couponController,
                             decoration: InputDecoration(
                                 hintText: 'Enter discount code...',
                                 hintStyle: TextStyle(fontSize: 17.sp),
@@ -431,6 +442,33 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                                   Icons.local_offer_outlined,
                                   color: Colors.green,
                                   size: 20.sp,
+                                ),
+                                suffix: GetBuilder<CouponController>(
+                                  init: CouponController(),
+                                  initState: (_) {},
+                                  builder: (controller) {
+                                    return InkWell(
+                                      onTap: () async {
+                                        int? amount = await controller
+                                            .getData(couponController.text);
+                                        if (amount != null) {
+                                          FlushBarNotification.showSnack(
+                                            title: "Applied Successfully!",
+                                          );
+                                          setState(() {
+                                            couponAmount = amount;
+                                            GetStorage().write("couponCode",
+                                                couponController.text);
+                                          });
+                                        } else {
+                                          FlushBarNotification.showSnack(
+                                            title: "Invalid Coupon!",
+                                          );
+                                        }
+                                      },
+                                      child: const Text("Apply"),
+                                    );
+                                  },
                                 )),
                           ),
                         )

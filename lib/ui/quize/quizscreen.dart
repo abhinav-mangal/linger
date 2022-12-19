@@ -207,7 +207,7 @@ class _QuizScreenState extends State<QuizScreen> with baseclass {
                               const Icon(Icons.lock_outline,
                                   color: Colors.white, size: 12),
                               CountdownTimer(
-                                endTime: DateTime.parse("2023-02-27").minute,
+                                endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 5702400,
                                 textStyle: const TextStyle(color: Colors.white),
                               )
                               // Text(

@@ -153,6 +153,8 @@ abstract class AppDataSource {
     String? subTotal,
     String? total,
     String? paymentStatus,
+    String? paymentId,
+    String? couponCode,
   });
 
   Future<dynamic> seeAll({required String token, required String type});

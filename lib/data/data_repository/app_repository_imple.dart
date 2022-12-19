@@ -1041,15 +1041,18 @@ class AppRepositoryImple extends AppRepository {
   }
 
   @override
-  Future<Either<Failure, OrderResponseModel?>> makeOrder(
-      {required String token,
-      address,
-      String? paymentMethod,
-      String? shippingTotal,
-      String? subAmount,
-      String? subTotal,
-      String? total,
-      String? paymentStatus}) async {
+  Future<Either<Failure, OrderResponseModel?>> makeOrder({
+    required String token,
+    address,
+    String? paymentMethod,
+    String? shippingTotal,
+    String? subAmount,
+    String? subTotal,
+    String? total,
+    String? paymentStatus,
+    String? paymentId,
+    String? couponCode,
+  }) async {
     if (await connectivityService.hasInternetConnectivity()) {
       try {
         final res = await appDataSource.makeOrder(
@@ -1060,6 +1063,8 @@ class AppRepositoryImple extends AppRepository {
           subTotal: subTotal,
           total: total,
           paymentStatus: paymentStatus,
+          paymentId: paymentId,
+          couponCode : couponCode
         );
         if (res['success'] == true) {
           final myInfoResponse = OrderResponseModel.fromJson(res);

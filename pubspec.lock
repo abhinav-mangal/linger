@@ -475,6 +475,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  flutter_appauth:
+    dependency: "direct main"
+    description:
+      name: flutter_appauth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.1"
+  flutter_appauth_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_appauth_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.2.0"
   flutter_bloc:
     dependency: "direct main"
     description:

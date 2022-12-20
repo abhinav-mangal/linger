@@ -51,6 +51,9 @@ android {
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders += [
+            'appAuthRedirectScheme': 'com.allthesafe.linger'
+        ]
     }
 
     buildTypes {

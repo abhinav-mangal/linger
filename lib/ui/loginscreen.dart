@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:linger/Basepackage/baseclass.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linger/Controller/google_login_controller.dart';
 import 'package:linger/Utils/CustomEdits.dart';
 import 'package:linger/ui/PasswordScreen.dart';
 import 'package:linger/Utils/colors.dart';
@@ -26,6 +30,10 @@ class _LoginScreenState extends State<LoginScreen> with baseclass {
   TextEditingController passwordController = TextEditingController();
   late final SignInCubit signInCubit;
   Decoration dec = const BoxDecoration();
+  final googleSignIn = GoogleSignIn();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  GoogleLoginController controller = Get.put(GoogleLoginController());
+
   @override
   void initState() {
     // TODO: implement initState
@@ -54,253 +62,265 @@ class _LoginScreenState extends State<LoginScreen> with baseclass {
     ToastContext().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      padding: EdgeInsets.fromLTRB(4.w, 8.4.h, 0, 0),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.black,
-                        size: 20.sp,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Image.asset(
-                      "assets/images/logo.png",
-                      height: 16.w,
-                      width: 16.w,
-                      fit: BoxFit.cover,
-                    ),
-                    SizedBox(
-                      height: 4.h,
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(4.w, 0.h, 4.w, 0),
-                      height: 6.4.h,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                              width: 1.0,
-                              color:
-                                  getColorFromHex(ColorConstants.greencolor)),
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: CustomEditText(
-                        textcontroller: emailController,
-                        prefixiconwidget: Container(
-                          padding: const EdgeInsets.all(12.5),
-                          child: Image.asset(
-                            'assets/images/user.png',
-                            height: 3.84.w,
-                            width: 3.84.w,
-                          ),
-                        ),
-                        hint: 'Enter your email',
-                        hinttextcolor: getColorFromHex(ColorConstants.grey),
-                        hinttextsize: 17.sp,
-                        familytype: 1,
-                        textcolor: getColorFromHex(ColorConstants.black),
-                        textsize: 17.sp,
-                        textalign: TextAlign.left,
-                        onchangetext: signInCubit.onEmailInputChanged,
-                        bordercolor: Colors.transparent,
-                        borderradius: 0,
-                        borderwidth: 0,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(4.w, 0.h, 4.w, 0),
-                      height: 6.4.h,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                              width: 1.0,
-                              color:
-                                  getColorFromHex(ColorConstants.greencolor)),
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: CustomEditText(
-                        obscureText: _isPasswordVisible,
-                        textcontroller: passwordController,
-                        sufixiconwidget: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: getColorFromHex(ColorConstants.green),
-                            size: 17.sp,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                        prefixiconwidget: Container(
-                          padding: const EdgeInsets.all(12.5),
-                          child: Image.asset(
-                            'assets/images/lock.png',
-                            height: 3.84.w,
-                            width: 3.84.w,
-                          ),
-                        ),
-                        hint: 'Enter your password',
-                        hinttextcolor: getColorFromHex(ColorConstants.grey),
-                        hinttextsize: 17.sp,
-                        familytype: 1,
-                        textcolor: getColorFromHex(ColorConstants.black),
-                        textsize: 17.sp,
-                        textalign: TextAlign.left,
-                        onchangetext: signInCubit.onPasswordInputChanged,
-                        bordercolor: Colors.transparent,
-                        borderradius: 0,
-                        borderwidth: 0,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const PasswordScreen()));
-                      },
-                      child: Container(
-                        width: size.width,
-                        alignment: Alignment.bottomRight,
-                        margin: EdgeInsets.fromLTRB(4.w, 0.h, 4.w, 0),
-                        child: CustomText(
-                          text: 'Forgot Password?',
-                          familytype: 1,
-                          linecount: 1,
-                          textcolor: getColorFromHex(ColorConstants.greencolor),
-                          textsize: 17.sp,
-                          align: Alignment.centerRight,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(4.w, 0.h, 4.w, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+      body: Obx(
+        () => controller.isLoading.value
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      InkWell(
-                        onTap: () async {
-                          if (validateEmail(emailController.text) &&
-                              validatePassword(passwordController.text)) {
-                            signInCubit.loginFunc();
-                            // Map<String, String> request = Map<String, String>();
-                            //
-                            // request["email"] = emailController.text;
-                            // request["password"] = passwordController.text;
-                            //
-                            // // ApiResponse response = await LoginService().login(request);
-                            // // if(response.success) {
-                            //   Navigator.of(context).pushAndRemoveUntil(
-                            //       MaterialPageRoute(builder: (context) =>
-                            //       const HomePage()), (route) => false);
-                            //  // }
-
-                          }
-                        },
-                        child: Container(
-                          width: size.width,
-                          height: 6.4.h,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: getColorFromHex(ColorConstants.green),
-                            borderRadius: BorderRadius.circular(15.sp),
-                          ),
-                          child: CustomText(
-                            text: 'Login',
-                            familytype: 2,
-                            linecount: 1,
-                            textcolor: Colors.white,
-                            textsize: 17.sp,
-                            align: Alignment.center,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3.8.h,
-                      ),
                       Row(
                         children: [
-                          Expanded(
-                              flex: 8,
-                              child: Divider(
-                                color: getColorFromHex(ColorConstants.greycolor)
-                                    .withOpacity(0.36),
-                                thickness: 1.0,
-                              )),
-                          Expanded(
-                            flex: 3,
-                            child: CustomText(
-                              text: 'Or',
-                              familytype: 1,
-                              linecount: 1,
-                              textcolor: Colors.black,
-                              marginvalue: EdgeInsets.fromLTRB(4.w, 0, 4.w, 0),
-                              textsize: 17.sp,
-                              align: Alignment.center,
+                          IconButton(
+                            padding: EdgeInsets.fromLTRB(4.w, 8.4.h, 0, 0),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.black,
+                              size: 20.sp,
                             ),
                           ),
-                          Expanded(
-                              flex: 8,
-                              child: Divider(
-                                color: getColorFromHex(ColorConstants.greycolor)
-                                    .withOpacity(0.36),
-                                thickness: 1.0,
-                              )),
                         ],
                       ),
-                      // Text('---------- Or ----------', style: TextStyle(fontSize: 17.sp),),
-                      SizedBox(
-                        height: 3.8.h,
+                      Column(
+                        children: [
+                          Image.asset(
+                            "assets/images/logo.png",
+                            height: 16.w,
+                            width: 16.w,
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(
+                            height: 4.h,
+                          ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(4.w, 0.h, 4.w, 0),
+                            height: 6.4.h,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                    width: 1.0,
+                                    color: getColorFromHex(
+                                        ColorConstants.greencolor)),
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                            child: CustomEditText(
+                              textcontroller: emailController,
+                              prefixiconwidget: Container(
+                                padding: const EdgeInsets.all(12.5),
+                                child: Image.asset(
+                                  'assets/images/user.png',
+                                  height: 3.84.w,
+                                  width: 3.84.w,
+                                ),
+                              ),
+                              hint: 'Enter your email',
+                              hinttextcolor:
+                                  getColorFromHex(ColorConstants.grey),
+                              hinttextsize: 17.sp,
+                              familytype: 1,
+                              textcolor: getColorFromHex(ColorConstants.black),
+                              textsize: 17.sp,
+                              textalign: TextAlign.left,
+                              onchangetext: signInCubit.onEmailInputChanged,
+                              bordercolor: Colors.transparent,
+                              borderradius: 0,
+                              borderwidth: 0,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(4.w, 0.h, 4.w, 0),
+                            height: 6.4.h,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                    width: 1.0,
+                                    color: getColorFromHex(
+                                        ColorConstants.greencolor)),
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                            child: CustomEditText(
+                              obscureText: _isPasswordVisible,
+                              textcontroller: passwordController,
+                              sufixiconwidget: IconButton(
+                                icon: Icon(
+                                  _isPasswordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: getColorFromHex(ColorConstants.green),
+                                  size: 17.sp,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isPasswordVisible = !_isPasswordVisible;
+                                  });
+                                },
+                              ),
+                              prefixiconwidget: Container(
+                                padding: const EdgeInsets.all(12.5),
+                                child: Image.asset(
+                                  'assets/images/lock.png',
+                                  height: 3.84.w,
+                                  width: 3.84.w,
+                                ),
+                              ),
+                              hint: 'Enter your password',
+                              hinttextcolor:
+                                  getColorFromHex(ColorConstants.grey),
+                              hinttextsize: 17.sp,
+                              familytype: 1,
+                              textcolor: getColorFromHex(ColorConstants.black),
+                              textsize: 17.sp,
+                              textalign: TextAlign.left,
+                              onchangetext: signInCubit.onPasswordInputChanged,
+                              bordercolor: Colors.transparent,
+                              borderradius: 0,
+                              borderwidth: 0,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PasswordScreen()));
+                            },
+                            child: Container(
+                              width: size.width,
+                              alignment: Alignment.bottomRight,
+                              margin: EdgeInsets.fromLTRB(4.w, 0.h, 4.w, 0),
+                              child: CustomText(
+                                text: 'Forgot Password?',
+                                familytype: 1,
+                                linecount: 1,
+                                textcolor:
+                                    getColorFromHex(ColorConstants.greencolor),
+                                textsize: 17.sp,
+                                align: Alignment.centerRight,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                        ],
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
-                        decoration: dec,
-                        child: socialmediabutton('Glogo.png', "Google", () {},
-                            getColorFromHex(ColorConstants.greycolor), false),
-                      ),
+                        margin: EdgeInsets.fromLTRB(4.w, 0.h, 4.w, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                if (validateEmail(emailController.text) &&
+                                    validatePassword(passwordController.text)) {
+                                  signInCubit.loginFunc();
+                                  // Map<String, String> request = Map<String, String>();
+                                  //
+                                  // request["email"] = emailController.text;
+                                  // request["password"] = passwordController.text;
+                                  //
+                                  // // ApiResponse response = await LoginService().login(request);
+                                  // // if(response.success) {
+                                  //   Navigator.of(context).pushAndRemoveUntil(
+                                  //       MaterialPageRoute(builder: (context) =>
+                                  //       const HomePage()), (route) => false);
+                                  //  // }
 
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
-                        decoration: dec,
-                        child: socialmediabutton(
-                            'Fblogo.png',
-                            "Facebook",
-                            () {},
-                            getColorFromHex(ColorConstants.greycolor),
-                            false),
+                                }
+                              },
+                              child: Container(
+                                width: size.width,
+                                height: 6.4.h,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: getColorFromHex(ColorConstants.green),
+                                  borderRadius: BorderRadius.circular(15.sp),
+                                ),
+                                child: CustomText(
+                                  text: 'Login',
+                                  familytype: 2,
+                                  linecount: 1,
+                                  textcolor: Colors.white,
+                                  textsize: 17.sp,
+                                  align: Alignment.center,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3.8.h,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                    flex: 8,
+                                    child: Divider(
+                                      color: getColorFromHex(
+                                              ColorConstants.greycolor)
+                                          .withOpacity(0.36),
+                                      thickness: 1.0,
+                                    )),
+                                Expanded(
+                                  flex: 3,
+                                  child: CustomText(
+                                    text: 'Or',
+                                    familytype: 1,
+                                    linecount: 1,
+                                    textcolor: Colors.black,
+                                    marginvalue:
+                                        EdgeInsets.fromLTRB(4.w, 0, 4.w, 0),
+                                    textsize: 17.sp,
+                                    align: Alignment.center,
+                                  ),
+                                ),
+                                Expanded(
+                                    flex: 8,
+                                    child: Divider(
+                                      color: getColorFromHex(
+                                              ColorConstants.greycolor)
+                                          .withOpacity(0.36),
+                                      thickness: 1.0,
+                                    )),
+                              ],
+                            ),
+                            // Text('---------- Or ----------', style: TextStyle(fontSize: 17.sp),),
+                            SizedBox(
+                              height: 3.8.h,
+                            ),
+                            Container(
+                              margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
+                              decoration: dec,
+                              child: socialmediabutton('Glogo.png', "Google",
+                                  () async {
+                                await signup(context);
+                              }, getColorFromHex(ColorConstants.greycolor),
+                                  false),
+                            ),
+
+                            Container(
+                              margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
+                              decoration: dec,
+                              child: socialmediabutton(
+                                  'Fblogo.png',
+                                  "Facebook",
+                                  () {},
+                                  getColorFromHex(ColorConstants.greycolor),
+                                  false),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ]),
-        ),
+                    ]),
+              ),
       ),
       bottomNavigationBar: InkWell(
         onTap: () {
@@ -327,6 +347,28 @@ class _LoginScreenState extends State<LoginScreen> with baseclass {
         ),
       ),
     );
+  }
+
+  Future<void> signup(BuildContext context) async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final AuthCredential authCredential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken);
+
+      // Getting users credential
+      UserCredential? result = await auth.signInWithCredential(authCredential);
+      User? user = result.user;
+
+      if (user != null) {
+        controller.sendData(
+            name: user.displayName!, email: user.email!, uid: user.uid);
+      }
+    }
   }
 }
 

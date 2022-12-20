@@ -1,57 +1,42 @@
 {
   "project_info": {
-    "project_number": "832620439301",
-    "project_id": "linger-a3d19",
-    "storage_bucket": "linger-a3d19.appspot.com"
+    "project_number": "222778778582",
+    "project_id": "linger-d2476",
+    "storage_bucket": "linger-d2476.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:832620439301:android:d81cf1bb33ea5c829e396c",
+        "mobilesdk_app_id": "1:222778778582:android:26257e8176288776b87a77",
         "android_client_info": {
           "package_name": "com.allthesafe.linger"
         }
       },
       "oauth_client": [
         {
-          "client_id": "832620439301-r75it9tm2umcj291o557pm080opvrn9p.apps.googleusercontent.com",
+          "client_id": "222778778582-q9nca15lb1qlvc76v57mcc9eacasragl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.allthesafe.linger",
-            "certificate_hash": "8e1576970fea939bc0d5abad683215e725abaabb"
+            "certificate_hash": "5efb6844b4686834b6c6c074e2aafd235dbcd761"
           }
         },
         {
-          "client_id": "832620439301-tfovfbrf5uf6ds2kcps8b9plv3q5poia.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.allthesafe.linger",
-            "certificate_hash": "7a54e77bd6d40b378ea393cd56302ba2033ec55f"
-          }
-        },
-        {
-          "client_id": "832620439301-lvgd7gp16b4inu4mevd3gc1vee9s0495.apps.googleusercontent.com",
+          "client_id": "222778778582-vc8h53vc60p1h1cvhr1uo8r80rne7i83.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC9hXip5ROKwBJ66TNgmlSRQzqerOYJYu0"
+          "current_key": "AIzaSyCV-7X8KLzqeeo6cJRkCyf-tWM4uWzaj-M"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "832620439301-lvgd7gp16b4inu4mevd3gc1vee9s0495.apps.googleusercontent.com",
+              "client_id": "222778778582-vc8h53vc60p1h1cvhr1uo8r80rne7i83.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "832620439301-p2s9fhir8n3a9b9060429eou9n317ba3.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.linger"
-              }
             }
           ]
         }

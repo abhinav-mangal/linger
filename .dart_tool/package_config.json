@@ -410,6 +410,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_appauth",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_appauth-4.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_appauth_platform_interface",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_appauth_platform_interface-5.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_bloc",
       "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_bloc-8.1.1",
       "packageUri": "lib/",
@@ -1400,7 +1412,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-12-18T16:37:27.698149Z",
+  "generated": "2022-12-19T16:50:09.512286Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }

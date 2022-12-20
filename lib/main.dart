@@ -12,9 +12,7 @@ import 'locator.dart';
 Future<void> main() async {
   setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
-  if (!kIsWeb) {
     await Firebase.initializeApp();
-  }
   // MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.shortestSide<600? runApp(const AppProvider()):
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {

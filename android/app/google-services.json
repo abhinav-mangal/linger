@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "222778778582",
-    "project_id": "linger-d2476",
-    "storage_bucket": "linger-d2476.appspot.com"
+    "project_number": "22338311804",
+    "project_id": "linger-8ed2d",
+    "storage_bucket": "linger-8ed2d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:222778778582:android:26257e8176288776b87a77",
+        "mobilesdk_app_id": "1:22338311804:android:a8be6430058d1e5ffb1bf9",
         "android_client_info": {
-          "package_name": "com.allthesafe.linger"
+          "package_name": "com.app.linger"
         }
       },
       "oauth_client": [
         {
-          "client_id": "222778778582-q9nca15lb1qlvc76v57mcc9eacasragl.apps.googleusercontent.com",
+          "client_id": "22338311804-e3m6g8gfv14mqru7qi64e83dcj3iobmi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.allthesafe.linger",
+            "package_name": "com.app.linger",
             "certificate_hash": "5efb6844b4686834b6c6c074e2aafd235dbcd761"
           }
         },
         {
-          "client_id": "222778778582-vc8h53vc60p1h1cvhr1uo8r80rne7i83.apps.googleusercontent.com",
+          "client_id": "22338311804-maurmn24ere493jnjuhm7erit7jqgrrk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCV-7X8KLzqeeo6cJRkCyf-tWM4uWzaj-M"
+          "current_key": "AIzaSyAoP5ZG72odmHi2tlxZdKhttmOgZQYmu4c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "222778778582-vc8h53vc60p1h1cvhr1uo8r80rne7i83.apps.googleusercontent.com",
+              "client_id": "22338311804-maurmn24ere493jnjuhm7erit7jqgrrk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

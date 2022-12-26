@@ -187,7 +187,7 @@ class _ProfileFreeScreenState extends State<ProfileFreeScreen> with baseclass {
                           //   ),
                           // ),
                           SizedBox(
-                            height: getH(73),
+                            height: getH(40),
                           ),
                           CustomText(
                             textalign: TextAlign.center,
@@ -199,7 +199,27 @@ class _ProfileFreeScreenState extends State<ProfileFreeScreen> with baseclass {
                           ),
                           use.user!.primeStatus == 0
                               ? Container()
-                              : Image.asset('assets/images/prime.png'),
+                              : Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 4),
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      Icon(Icons.verified,
+                                          color: Colors.blue, size: 20),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        "Premium Account",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                           Container(
                             margin: EdgeInsets.only(top: getH(20)),
                             child: Row(

@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:linger/Basepackage/baseclass.dart';
 import 'package:linger/Utils/colors.dart';
@@ -25,6 +26,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:share_plus/share_plus.dart';
+import '../Controller/hijri_controller.dart';
 import 'Calendar/my_calendar_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -168,14 +170,25 @@ class _HomeScreenState extends State<HomeScreen>
                                           SizedBox(
                                             height: 1.h,
                                           ),
-                                          Text(
-                                            '23 Sha’ban 1443 AH',
-                                            style: TextStyle(
-                                                fontFamily: 'Reguler',
-                                                color: state.colorStatus
-                                                    ?.withOpacity(0.7),
-                                                fontSize: 17.sp,
-                                                fontWeight: FontWeight.w400),
+                                          GetBuilder<HijiriController>(
+                                            init: HijiriController(),
+                                            initState: (_) {},
+                                            builder: (controller) {
+                                              String date =
+                                                  DateFormat("dd-MM-yyyy")
+                                                      .format(dateTime);
+                                                      controller.hijiriDateConverter(date);
+                                              return Text(
+                                                controller.hijiriDate,
+                                                style: TextStyle(
+                                                    fontFamily: 'Reguler',
+                                                    color: state.colorStatus
+                                                        ?.withOpacity(0.7),
+                                                    fontSize: 17.sp,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              );
+                                            },
                                           ),
                                         ],
                                       ),
@@ -212,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 Row(
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.5,
@@ -221,7 +234,10 @@ class _HomeScreenState extends State<HomeScreen>
                                               MainAxisAlignment.end,
                                           children: [
                                             Text(
-                                              "${state.prayername == null ? '' : state.prayername!.split(' ')[0]}",
+                                              state.prayername == null
+                                                  ? ''
+                                                  : state.prayername!
+                                                      .split(' ')[0],
                                               style: TextStyle(
                                                   fontFamily: 'Bold',
                                                   color: state.colorStatus,
@@ -230,12 +246,12 @@ class _HomeScreenState extends State<HomeScreen>
                                             ),
                                           ],
                                         )),
-                                    Container(
+                                    SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.5,
                                       child: Row(children: [
                                         Text(
-                                          " ${(state.counter == null ? '' : state.counter!.toString().split(':')[0] + ':' + state.counter!.toString().split(':')[1])}",
+                                          " ${(state.counter == null ? '' : '${state.counter!.toString().split(':')[0]}:${state.counter!.toString().split(':')[1]}')}",
                                           style: TextStyle(
                                               fontFamily: 'Bold',
                                               color: state.colorStatus,
@@ -598,7 +614,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ? Container(
                       padding: EdgeInsets.fromLTRB(4.w, 1.h, 4.w, 1.h),
                       width: MediaQuery.of(context).size.width,
-                      height: 30.38.h,
+                      height: 25.38.h,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16.sp),
                         child: Swiper(
@@ -647,10 +663,11 @@ class _HomeScreenState extends State<HomeScreen>
                                         margin:
                                             EdgeInsets.only(right: getW(10)),
                                         decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(image: NetworkImage("${homeRes?.perOfTheDay![currentPage.value].profileImage}"))
-                                        ),
+                                            color: Colors.grey,
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    "${homeRes?.perOfTheDay![currentPage.value].profileImage}"))),
                                         // child: const Icon(
                                         //   Icons.calendar_today_outlined,
                                         //   color: Colors.blue,
@@ -666,6 +683,15 @@ class _HomeScreenState extends State<HomeScreen>
                                           ),
                                         ],
                                       ),
+                                      const SizedBox(width: 5),
+                                      homeRes?.perOfTheDay![currentPage.value]
+                                                  .primeStatus ==
+                                              1
+                                          ? const Icon(
+                                              Icons.verified,
+                                              color: Colors.blue,
+                                              size: 20)
+                                          : Container()
                                     ])),
                               ])
                         : Container();
@@ -798,7 +824,7 @@ class _HomeScreenState extends State<HomeScreen>
                     )
                   : Container(),
               Container(
-                height: 25.38.h,
+                height: 30.38.h,
                 padding: EdgeInsets.fromLTRB(4.w, 0.h, 4.w, 0.h),
                 width: MediaQuery.of(context).size.width,
                 // margin: EdgeInsets.symmetric(horizontal: 4.w),

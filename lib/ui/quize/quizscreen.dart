@@ -106,19 +106,22 @@ class _QuizScreenState extends State<QuizScreen> with baseclass {
                           context: context,
                           builder: (context) {
                             return Dialog(
+                              alignment: Alignment.topCenter,
+                              insetPadding: const EdgeInsets.only(
+                                  left: 40, right: 40, top: 120, bottom: 320),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Stack(children: [
                                 Column(
-                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Image.asset(
                                         'assets/images/quiz_frame_03.png'),
+                                    const SizedBox(height: 20),
                                     const Padding(
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 16),
                                       child: Text(
-                                        "Ramazan-Night of Destiny - 2",
+                                        "Ramazan-Month of Maghfirat",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 24,
@@ -131,7 +134,7 @@ class _QuizScreenState extends State<QuizScreen> with baseclass {
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 16),
                                       child: Text(
-                                        "The Quran is divided into Surahs and further divided into Ayahs . The real translation of the word Ayah is actually .",
+                                        "This Quiz season will be for 50 days at the end of the seasons it will bring the rewards worth of lacks, So be prepared",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 12,
@@ -154,7 +157,7 @@ class _QuizScreenState extends State<QuizScreen> with baseclass {
                                     top: 100,
                                     left: 20,
                                     child: Text(
-                                      "25/01/2023",
+                                      "22/02/2023",
                                       style: TextStyle(
                                           // fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -164,7 +167,7 @@ class _QuizScreenState extends State<QuizScreen> with baseclass {
                                     top: 100,
                                     left: 220,
                                     child: Text(
-                                      "04 : 00 PM",
+                                      "12 : 00 AM",
                                       style: TextStyle(
                                           // fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -207,16 +210,13 @@ class _QuizScreenState extends State<QuizScreen> with baseclass {
                               const Icon(Icons.lock_outline,
                                   color: Colors.white, size: 12),
                               CountdownTimer(
-                                endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 5702400,
+                                endTime: DateTime(2023, 2, 22)
+                                    .millisecondsSinceEpoch,
+                                endWidget: const Center(
+                                    child: Text('The current time has expired',
+                                        style: TextStyle(color: Colors.white))),
                                 textStyle: const TextStyle(color: Colors.white),
                               )
-                              // Text(
-                              //   " 20D : 04 : 00 : 45",
-                              //   style: TextStyle(
-                              //       fontSize: 12,
-                              //       fontWeight: FontWeight.bold,
-                              //       color: Colors.white),
-                              // ),
                             ],
                           ),
                         ],

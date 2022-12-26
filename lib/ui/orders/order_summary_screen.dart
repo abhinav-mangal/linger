@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,9 +12,11 @@ import 'package:linger/cubits/profile_cubit/profile_cubit.dart';
 import 'package:linger/cubits/shop/shop_cubit.dart';
 import 'package:linger/ui/orders/view/order_item_view.dart';
 import 'package:linger/ui/orders/view/product_order_view.dart';
+import 'package:linger/ui/shipping/shippingaddress.dart';
 import 'package:linger/ui/shope/pyment.dart';
 import 'package:linger/ui/widgets/primary_button.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Basepackage/baseclass.dart';
 import '../../Controller/coupon_controller.dart';
@@ -174,105 +177,133 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
             if (couponAmount != null) {
               totalAmount = totalAmount! - couponAmount!;
             }
+
             return SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 19.7.h,
-                    // height: getHeight(context)*0.2,
-                    // margin:  EdgeInsets.only(left:4.6.w,right:4.6.w,),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(12.sp)),
-                    ),
-                    padding: EdgeInsets.fromLTRB(4.w, 1.4.h, 4.w, 1.4.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            CustomText(
-                              text: '${address?.name}',
-                              familytype: 2,
-                              linecount: 1,
-                              textcolor: Colors.black,
-                              textsize: 17.sp,
-                              align: Alignment.center,
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                              onTap: () {
+                  address == null
+                      ? Center(
+                          child: TextButton.icon(
+                              onPressed: () {
                                 Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) =>
-                                            EditShippingAddressScreen(
-                                              name: address!.name!,
-                                              address: address.address!,
-                                              mobileNo: address.mobileNumber!,
-                                              postalCode: address.postcode!,
-                                              country: address.country!,
-                                              state: address.state!,
-                                              city: address.city!,
-                                              id: address.id!,
-                                            )));
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ShippingAddressScreen()))
+                                    .then((value) {
+                                  setState(() {
+                                    shopCubit.init(context);
+                                  });
+                                });
                               },
-                              child: CustomText(
-                                text: 'Edit',
-                                familytype: 2,
+                              icon: const Icon(Icons.add),
+                              label: const Text("Add Address")),
+                        )
+                      : Container(
+                          height: 19.7.h,
+                          // height: getHeight(context)*0.2,
+                          // margin:  EdgeInsets.only(left:4.6.w,right:4.6.w,),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(12.sp)),
+                          ),
+                          padding: EdgeInsets.fromLTRB(4.w, 1.4.h, 4.w, 1.4.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  CustomText(
+                                    text: '${address.name}',
+                                    familytype: 2,
+                                    linecount: 1,
+                                    textcolor: Colors.black,
+                                    textsize: 17.sp,
+                                    align: Alignment.center,
+                                  ),
+                                  const Spacer(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  EditShippingAddressScreen(
+                                                    name: address.name!,
+                                                    address: address.address!,
+                                                    mobileNo:
+                                                        address.mobileNumber!,
+                                                    postalCode:
+                                                        address.postcode!,
+                                                    country: address.country!,
+                                                    state: address.state!,
+                                                    city: address.city!,
+                                                    id: address.id!,
+                                                  )));
+                                    },
+                                    child: CustomText(
+                                      text: 'Edit',
+                                      familytype: 2,
+                                      linecount: 1,
+                                      textcolor: getColorFromHex(
+                                          ColorConstants.greencolor),
+                                      textsize: 17.sp,
+                                      align: Alignment.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              CustomText(
+                                text: '${address.mobileNumber}',
+                                familytype: 1,
                                 linecount: 1,
                                 textcolor:
-                                    getColorFromHex(ColorConstants.greencolor),
-                                textsize: 17.sp,
-                                align: Alignment.center,
+                                    getColorFromHex(ColorConstants.greycolor)
+                                        .withOpacity(0.6),
+                                textsize: 15.sp,
+                                marginvalue:
+                                    const EdgeInsets.only(top: 8, bottom: 4),
+                                align: Alignment.centerLeft,
                               ),
-                            ),
-                          ],
+                              CustomText(
+                                text: '${address.address}',
+                                familytype: 1,
+                                linecount: 2,
+                                textcolor:
+                                    getColorFromHex(ColorConstants.greycolor)
+                                        .withOpacity(0.6),
+                                textsize: 15.sp,
+                                // marginvalue: const EdgeInsets.only(top:8,bottom: 8),
+                                align: Alignment.centerLeft,
+                              ),
+                              CustomText(
+                                text: '${address.city},${address.state}',
+                                familytype: 1,
+                                linecount: 1,
+                                textcolor:
+                                    getColorFromHex(ColorConstants.greycolor)
+                                        .withOpacity(0.6),
+                                textsize: 15.sp,
+                                marginvalue:
+                                    const EdgeInsets.only(top: 4, bottom: 4),
+                                align: Alignment.centerLeft,
+                              ),
+                              CustomText(
+                                text: '${address.postcode}',
+                                familytype: 1,
+                                linecount: 1,
+                                textcolor:
+                                    getColorFromHex(ColorConstants.greycolor)
+                                        .withOpacity(0.6),
+                                textsize: 15.sp,
+                                align: Alignment.centerLeft,
+                              ),
+                            ],
+                          ),
                         ),
-                        CustomText(
-                          text: '${address?.mobileNumber}',
-                          familytype: 1,
-                          linecount: 1,
-                          textcolor: getColorFromHex(ColorConstants.greycolor)
-                              .withOpacity(0.6),
-                          textsize: 15.sp,
-                          marginvalue: const EdgeInsets.only(top: 8, bottom: 4),
-                          align: Alignment.centerLeft,
-                        ),
-                        CustomText(
-                          text: '${address?.address}',
-                          familytype: 1,
-                          linecount: 2,
-                          textcolor: getColorFromHex(ColorConstants.greycolor)
-                              .withOpacity(0.6),
-                          textsize: 15.sp,
-                          // marginvalue: const EdgeInsets.only(top:8,bottom: 8),
-                          align: Alignment.centerLeft,
-                        ),
-                        CustomText(
-                          text: '${address?.city},${address?.state}',
-                          familytype: 1,
-                          linecount: 1,
-                          textcolor: getColorFromHex(ColorConstants.greycolor)
-                              .withOpacity(0.6),
-                          textsize: 15.sp,
-                          marginvalue: const EdgeInsets.only(top: 4, bottom: 4),
-                          align: Alignment.centerLeft,
-                        ),
-                        CustomText(
-                          text: '${address?.postcode}',
-                          familytype: 1,
-                          linecount: 1,
-                          textcolor: getColorFromHex(ColorConstants.greycolor)
-                              .withOpacity(0.6),
-                          textsize: 15.sp,
-                          align: Alignment.centerLeft,
-                        ),
-                      ],
-                    ),
-                  ),
                   SizedBox(
                     height: 1.h,
                   ),
@@ -604,66 +635,77 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                             Expanded(
                               child: Padding(
                                 padding: EdgeInsets.all(2.w),
-                                child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            'By placing an order, you acknowledge that you have read the ',
-                                        style:
-                                            theme.textTheme.caption?.copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: 'SF Pro Display',
-                                          fontSize: 13.sp,
+                                child: InkWell(
+                                  onTap: () async {
+                                    var url =
+                                        "https://shop.lingerislam.com/index.php/returnpolicy";
+                                    if (await canLaunch(url)) {
+                                      await launch(url.toString());
+                                    } else {
+                                      await launch(url.toString());
+                                    }
+                                  },
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              'By placing an order, you acknowledge that you have read the ',
+                                          style:
+                                              theme.textTheme.caption?.copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'SF Pro Display',
+                                            fontSize: 13.sp,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: 'Terms of Service ',
-                                        style: theme.textTheme.titleLarge
-                                            ?.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'SF Pro Display',
-                                          fontSize: 13.sp,
+                                        TextSpan(
+                                          text: 'Terms of Service ',
+                                          style: theme.textTheme.titleLarge
+                                              ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'SF Pro Display',
+                                            fontSize: 13.sp,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: 'and ',
-                                        style:
-                                            theme.textTheme.caption?.copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: 'SF Pro Display',
-                                          fontSize: 13.sp,
+                                        TextSpan(
+                                          text: 'and ',
+                                          style:
+                                              theme.textTheme.caption?.copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'SF Pro Display',
+                                            fontSize: 13.sp,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: 'Privacy Policy ',
-                                        style: theme.textTheme.titleLarge
-                                            ?.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'SF Pro Display',
-                                          fontSize: 13.sp,
+                                        TextSpan(
+                                            text: 'Privacy Policy ',
+                                            style: theme.textTheme.titleLarge
+                                                ?.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: 'SF Pro Display',
+                                              fontSize: 13.sp,
+                                            ),
+                                            ),
+                                        TextSpan(
+                                          text:
+                                              'of Linger Shop. Payment will be processed separately by RazorPay according to ',
+                                          style:
+                                              theme.textTheme.caption?.copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'SF Pro Display',
+                                            fontSize: 13.sp,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text:
-                                            'of Linger Shop. Payment will be processed separately by PIPO according to ',
-                                        style:
-                                            theme.textTheme.caption?.copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: 'SF Pro Display',
-                                          fontSize: 13.sp,
+                                        TextSpan(
+                                          text: 'RazorPay Privacy Policy. ',
+                                          style: theme.textTheme.titleLarge
+                                              ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'SF Pro Display',
+                                            fontSize: 13.sp,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: 'PIPO Privacy Policy. ',
-                                        style: theme.textTheme.titleLarge
-                                            ?.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'SF Pro Display',
-                                          fontSize: 13.sp,
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -712,90 +754,97 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                         ),
                         GestureDetector(
                           onTap: () async {
-                            if (state.order?.paymentMethod == "paytm") {
-                              await createOrder(
-                                totalAmount.toString(),
-                                emailId: profileCubit.state.user?.user?.email,
-                                mno: profileCubit.state.user?.user?.mobileNo,
-                                desc: _getPaymentDesc(state),
-                              );
+                            if (address == null) {
+                              FlushBarNotification.showSnack(
+                                  title:
+                                      "Please add your shipping address first");
                             } else {
-                              await shopcubit.createOrder(
-                                context,
-                                address:
-                                    "${shopcubit.state.myOrderAddress?.data![0].address}",
-                                paymentMethod: "cod",
-                                paymentStatus: "unpaid",
-                                shippingTotal:
-                                    "${shopcubit.state.orderSummaryModel?.data?.shippingAmount}",
-                                subTotal:
-                                    "${shopcubit.state.orderSummaryModel?.data?.subTotal}",
-                                total:
-                                    "${shopcubit.state.orderSummaryModel?.data?.total}",
-                              );
+                              if (state.order?.paymentMethod == "paytm") {
+                                await createOrder(
+                                  totalAmount.toString(),
+                                  emailId: profileCubit.state.user?.user?.email,
+                                  mno: profileCubit.state.user?.user?.mobileNo,
+                                  desc: _getPaymentDesc(state),
+                                );
+                              } else {
+                                await shopcubit.createOrder(
+                                  context,
+                                  address:
+                                      "${shopcubit.state.myOrderAddress?.data![0].address}",
+                                  paymentMethod: "cod",
+                                  paymentStatus: "unpaid",
+                                  shippingTotal:
+                                      "${shopcubit.state.orderSummaryModel?.data?.shippingAmount}",
+                                  subTotal:
+                                      "${shopcubit.state.orderSummaryModel?.data?.subTotal}",
+                                  total:
+                                      "${shopcubit.state.orderSummaryModel?.data?.total}",
+                                );
 
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (_) => OrderStatusScreen(
-                              //               oid: shopcubit.state.order?.oid ??
-                              //                   '',
-                              //             )));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (_) => OrderStatusScreen(
+                                //               oid: shopcubit.state.order?.oid ??
+                                //                   '',
+                                //             )));
 
-                              final router = getItInjector<AppRouter>();
-                              AppRouter.getParameters(
-                                params: SuccessScreenParams(
-                                  oid: shopcubit.state.order?.oid ?? '',
-                                  buttonLabel: 'View Order',
-                                  title: 'Order Submitted!',
-                                  subTitle: 'Your shipping info:',
-                                  subTitleView: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Your shipping info:',
-                                        style: theme.textTheme.titleMedium,
-                                      ),
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
-                                      Text(
-                                        '(+91) ${shopcubit.state.orderSummaryModel?.data?.address?.mobileNumber}',
-                                        style: theme.textTheme.caption,
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text(
-                                        '${shopcubit.state.orderSummaryModel?.data?.address?.address}',
-                                        style: theme.textTheme.caption,
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text(
-                                        '${shopcubit.state.orderSummaryModel?.data?.address?.city},${shopcubit.state.orderSummaryModel?.data?.address?.state}',
-                                        style: theme.textTheme.caption,
-                                      ),
-                                    ],
+                                final router = getItInjector<AppRouter>();
+                                AppRouter.getParameters(
+                                  params: SuccessScreenParams(
+                                    oid: shopcubit.state.order?.oid ?? '',
+                                    buttonLabel: 'View Order',
+                                    title: 'Order Submitted!',
+                                    subTitle: 'Your shipping info:',
+                                    subTitleView: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Your shipping info:',
+                                          style: theme.textTheme.titleMedium,
+                                        ),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        Text(
+                                          '(+91) ${shopcubit.state.orderSummaryModel?.data?.address?.mobileNumber}',
+                                          style: theme.textTheme.caption,
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Text(
+                                          '${shopcubit.state.orderSummaryModel?.data?.address?.address}',
+                                          style: theme.textTheme.caption,
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Text(
+                                          '${shopcubit.state.orderSummaryModel?.data?.address?.city},${shopcubit.state.orderSummaryModel?.data?.address?.state}',
+                                          style: theme.textTheme.caption,
+                                        ),
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      router.pushAndPopUntil(
+                                          const OrderStatusScreen(),
+                                          predicate: (Route<dynamic> route) {
+                                        return false;
+                                      });
+                                    },
                                   ),
-                                  onTap: () {
-                                    router.pushAndPopUntil(
-                                        const OrderStatusScreen(),
-                                        predicate: (Route<dynamic> route) {
-                                      return false;
-                                    });
-                                  },
-                                ),
-                                oid: shopcubit.state.order?.oid ?? '',
-                              );
+                                  oid: shopcubit.state.order?.oid ?? '',
+                                );
 
-                              router.push(const SuccessScreen());
-                              router.removeWhere(
-                                  (route) => route.name == "OrderSummary");
+                                router.push(const SuccessScreen());
+                                router.removeWhere(
+                                    (route) => route.name == "OrderSummary");
+                              }
                             }
                           },
                           child: Container(

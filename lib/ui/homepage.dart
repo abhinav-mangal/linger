@@ -3,9 +3,10 @@ import 'package:linger/Basepackage/baseclass.dart';
 import 'package:linger/Utils/colors.dart';
 import 'package:linger/ui/homescreen.dart';
 import 'package:linger/ui/morescreen.dart';
-import 'package:linger/ui/quize/leaderboardscreen.dart';
 import 'package:linger/ui/quize/quizscreen.dart';
 import 'package:linger/ui/shope/ShopScreen.dart';
+import 'package:linger/ui/sukoon/seerat_e_sahaba.dart';
+import 'package:linger/ui/sukoon/trending_categories.dart';
 import 'package:linger/ui/university/universityscreen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -14,6 +15,8 @@ import '../Utils/CommonUtils.dart';
 import '../Utils/customText.dart';
 // import '../models/homepage/TimingResponse.dart';
 import '../Utils/custombottomnavigatorbar.dart';
+import 'sukoon/sukkon_audios.dart';
+import 'sukoon/sukun_tranding_audio.dart';
 
 class HomePage extends StatefulWidget {
   final int? index;
@@ -47,7 +50,7 @@ class _HomePageState extends State<HomePage> with baseclass {
     TitledNavigationBarItem(
       title: CustomText(
         textalign: TextAlign.center,
-        text: "University",
+        text: "Sukoon",
         familytype: 2,
         textsize: 1.42.h,
         textcolor: CommonUtils.getColorFromHex(ColorConstants.black),
@@ -56,7 +59,7 @@ class _HomePageState extends State<HomePage> with baseclass {
           height: 3.1.h,
           width: 3.1.h,
           marginvalue: const EdgeInsets.only(bottom: 4),
-          imageName: "university.png"),
+          imageName: "sukoon_icon.png"),
     ),
     TitledNavigationBarItem(
       title: const Text(''),
@@ -94,7 +97,7 @@ class _HomePageState extends State<HomePage> with baseclass {
   ];
   final List<Widget> _homewidgetOptions = <Widget>[
     const ShopScreen(),
-    const UniversityScreen(),
+    const SukunTrendingAudio(),
     const HomeScreen(),
     const QuizScreen(),
     const MoreScreen()

@@ -58,7 +58,9 @@ class _ShippingAddressScreenState extends State<ShippingAddressScreen>
             toolbarHeight: 8.2.h,
             leading: IconButton(
                 padding: EdgeInsets.fromLTRB(4.6.w, 0, 0, 0),
-                onPressed: _onSearchButtonPressed,
+                onPressed: (){
+                  Navigator.pop(context);
+                },
                 icon: Icon(
                   Icons.arrow_back_ios,
                   color: Colors.black,

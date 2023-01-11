@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:linger/Basepackage/baseclass.dart';
-import 'package:linger/Utils/colors.dart';
+import 'package:linger/ui/SignUpSelectorScreen.dart';
+import 'package:linger/ui/my_animated_splash_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'SignUpSelectorScreen.dart';
-import 'my_animated_splash_screen.dart';
+import '../Utils/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -28,22 +28,38 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:
-          // SizeTransition(
-          //   child: Image.asset('assets/images/gradient_logo.png'),
-          //   axisAlignment: -0.5,
-          //   sizeFactor: CurvedAnimation(
-          //     curve: Curves.fastOutSlowIn,
-          //     parent: controller,
-          //   ),
-          // ),
-          MyAnimatedSplashScreen(
-        backgroundColor: getColorFromHex(ColorConstants.primary),
-        splash: Image.asset("assets/images/gradient_logo.png"),
-        duration: 2500,
-        splashIconSize: 25.h,
-        nextScreen: const WelcomeScreen(),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color(0xFFE6F4A0),
+              Color(0xFFFAFDDA),
+            ]),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Image.asset("assets/images/splash_logo.png", height: 5.h),
+        ),
+        body:
+            // SizeTransition(
+            //   child: Image.asset('assets/images/gradient_logo.png'),
+            //   axisAlignment: -0.5,
+            //   sizeFactor: CurvedAnimation(
+            //     curve: Curves.fastOutSlowIn,
+            //     parent: controller,
+            //   ),
+            // ),
+            MyAnimatedSplashScreen(
+          backgroundColor: getColorFromHex(ColorConstants.transparent),
+          splash: Image.asset("assets/images/splash_screen.gif"),
+          duration: 3000,
+          splashIconSize: 35.h,
+          nextScreen: const WelcomeScreen(),
+        ),
       ),
     );
   }

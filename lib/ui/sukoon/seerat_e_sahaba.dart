@@ -7,6 +7,8 @@ import 'package:linger/ui/sukoon/seerat_favorite.dart';
 import 'package:linger/ui/sukoon/seerat_sub_categories.dart';
 import 'package:linger/ui/sukoon/sukkon_audios.dart';
 
+import 'audio_player.dart';
+
 class Seerat_e_Sahaba extends StatefulWidget {
   final int cid;
   final String title;
@@ -34,6 +36,7 @@ class _Seerat_e_SahabaState extends State<Seerat_e_Sahaba> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -168,62 +171,57 @@ class _Seerat_e_SahabaState extends State<Seerat_e_Sahaba> {
                               .sukoonSubCategoryData!.subCategory!.length,
                           itemBuilder: ((context, index) {
                             return InkWell(
-                              onTap: (() {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => SukunAudio(
-                                              cid: controller
-                                                  .sukoonSubCategoryData!
-                                                  .subCategory![index]
-                                                  .cid!,
-                                              sid: controller
-                                                  .sukoonSubCategoryData!
-                                                  .subCategory![index]
-                                                  .id!,
-                                            )));
-                              }),
-                              child: Center(
-                                child: Card(
-                                  elevation: 0,
-                                  shape: BeveledRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Container(
-                                    height: 100,
-                                    width: MediaQuery.of(context).size.width /
-                                        1.03,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Colors.white),
+                                onTap: (() {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => SukunAudio(
+                                                name: controller
+                                                    .sukoonSubCategoryData!
+                                                    .subCategory![index]
+                                                    .name!,
+                                                image: controller
+                                                    .sukoonSubCategoryData!
+                                                    .subCategory![index]
+                                                    .image!,
+                                                cid: controller
+                                                    .sukoonSubCategoryData!
+                                                    .subCategory![index]
+                                                    .cid!,
+                                                sid: controller
+                                                    .sukoonSubCategoryData!
+                                                    .subCategory![index]
+                                                    .id!,
+                                              )));
+                                }),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Card(
+                                    elevation: 4,
+                                    shadowColor: Colors.grey.withOpacity(0.2),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
                                       children: [
                                         Container(
-                                          height: 100,
-                                          width: 110,
+                                          height: Get.height * 0.12,
+                                          width: Get.width * 0.24,
                                           decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(15),
+                                                  BorderRadius.circular(20),
                                               image: DecorationImage(
                                                   image: CachedNetworkImageProvider(
                                                       controller
                                                           .sukoonSubCategoryData!
                                                           .subCategory![index]
                                                           .image!),
-                                                  fit: BoxFit.fill)),
+                                                  fit: BoxFit.cover)),
                                         ),
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 15),
-                                          height: 50,
-                                          width: 150,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
+                                        Expanded(
+                                          child: ListTile(
+                                              title: Text(
                                                 controller
                                                     .sukoonSubCategoryData!
                                                     .subCategory![index]
@@ -233,33 +231,46 @@ class _Seerat_e_SahabaState extends State<Seerat_e_Sahaba> {
                                                     fontWeight:
                                                         FontWeight.w700),
                                               ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              const Text(
-                                                'Hazarat Saad Bin',
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              )
-                                            ],
-                                          ),
+                                              subtitle: Text(controller
+                                                      .sukoonSubCategoryData!
+                                                      .subCategory![index]
+                                                      .subcategoryName ??
+                                                  ""),
+                                              trailing: InkWell(
+                                                onTap: () {
+                                                  controller.sukoonLike(
+                                                      controller
+                                                          .sukoonSubCategoryData!
+                                                          .subCategory![index]
+                                                          .id!,
+                                                      controller
+                                                                  .sukoonSubCategoryData!
+                                                                  .subCategory![
+                                                                      index]
+                                                                  .status ==
+                                                              1
+                                                          ? 0
+                                                          : 1);
+                                                },
+                                                child: controller
+                                                            .sukoonSubCategoryData!
+                                                            .subCategory![index]
+                                                            .status ==
+                                                        1
+                                                    ? const Icon(
+                                                        Icons.favorite,
+                                                        color: Colors.red,
+                                                      )
+                                                    : const Icon(
+                                                        Icons.favorite_border,
+                                                        color: Colors.black,
+                                                      ),
+                                              )),
                                         ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        const Icon(
-                                          Icons.favorite,
-                                          color: Colors.red,
-                                          size: 37,
-                                        )
                                       ],
                                     ),
                                   ),
-                                ),
-                              ),
-                            );
+                                ));
                           })),
                     ),
                     const SizedBox(
@@ -277,112 +288,179 @@ class _Seerat_e_SahabaState extends State<Seerat_e_Sahaba> {
                     ),
                     SizedBox(
                       height: 100,
-                      width: MediaQuery.maybeOf(context)?.size.width,
-                      child: GridView.builder(
+                      child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           physics: const ScrollPhysics(),
                           itemCount: controller
                               .sukoonSubCategoryData!.mostLink!.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1,
-                                  childAspectRatio: 1 / 2.52),
                           itemBuilder: ((context, index) {
-                            return Center(
+                            return InkWell(
+                              onTap: () async {
+                                if (controller.audioPlayer.playing) {
+                                  await controller.audioPlayer.stop();
+                                }
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => NowPlaying(
+                                              audioPlayer:
+                                                  controller.audioPlayer,
+                                              initialIndex: index,
+                                              songModelList: controller
+                                                  .sukoonSubCategoryData!
+                                                  .mostLink!,
+                                            )));
+                              },
                               child: Card(
-                                elevation: 0,
-                                shape: BeveledRectangleBorder(
+                                elevation: 4,
+                                shadowColor: Colors.grey.withOpacity(0.2),
+                                shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: Container(
-                                  height: 100,
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.55,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.white),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 94,
-                                        width: 71,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            image: DecorationImage(
-                                                image: CachedNetworkImageProvider(
-                                                    controller
-                                                        .sukoonSubCategoryData!
-                                                        .mostLink![index]
-                                                        .image!),
-                                                fit: BoxFit.cover)),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(
-                                            left: 15, top: 10),
-                                        height: 100,
-                                        width: 110,
-                                        child: Column(
+                                child: Row(children: [
+                                  Container(
+                                    height: Get.height * 0.12,
+                                    width: Get.width * 0.2,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        image: DecorationImage(
+                                            image: CachedNetworkImageProvider(
+                                                controller
+                                                    .sukoonSubCategoryData!
+                                                    .mostLink![index]
+                                                    .image!),
+                                            fit: BoxFit.cover)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
+                                            Text(controller
+                                                .sukoonSubCategoryData!
+                                                .mostLink![index]
+                                                .title!),
                                             const Text(
-                                              'Seerat a Sahaba',
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400),
+                                              "hazrat saad bin abi waqqas ra",
+                                              style: TextStyle(fontSize: 10),
                                             ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            const Text(
-                                              'Hazarat Saad Bin',
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                            Row(
-                                              children: const [
-                                                Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.red,
-                                                  size: 15,
-                                                ),
-                                                Text(
-                                                  '00',
-                                                  style:
-                                                      TextStyle(fontSize: 10),
-                                                ),
-                                                Icon(
-                                                  Icons.headphones,
-                                                  color: Colors.black,
-                                                  size: 15,
-                                                ),
-                                                Text(
-                                                  '00',
-                                                  style:
-                                                      TextStyle(fontSize: 10),
-                                                ),
-                                                SizedBox(
-                                                  width: 16,
-                                                ),
-                                                Icon(
-                                                  Icons.play_circle,
-                                                  color: Colors.blue,
-                                                  size: 40,
-                                                )
-                                              ],
-                                            )
                                           ],
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                        Row(
+                                          children: const [
+                                            Icon(Icons.favorite,
+                                                color: Colors.red),
+                                            Text("99"),
+                                            SizedBox(width: 5),
+                                            Icon(
+                                              Icons.headphones,
+                                              color: Colors.black,
+                                            ),
+                                            Text("00"),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ]),
+
+                                // child: Container(
+                                //   height: 100,
+                                //   width:
+                                //       MediaQuery.of(context).size.width / 1.55,
+                                //   decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(15),
+                                //       color: Colors.white),
+                                //   child: Row(
+                                //     mainAxisAlignment: MainAxisAlignment.start,
+                                //     children: [
+                                //       Container(
+                                //         height: 94,
+                                //         width: 71,
+                                //         decoration: BoxDecoration(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(15),
+                                //             image: DecorationImage(
+                                //                 image: CachedNetworkImageProvider(
+                                //                     controller
+                                //                         .sukoonSubCategoryData!
+                                //                         .mostLink![index]
+                                //                         .image!),
+                                //                 fit: BoxFit.cover)),
+                                //       ),
+                                //       Container(
+                                //         margin: const EdgeInsets.only(
+                                //             left: 15, top: 10),
+                                //         height: 100,
+                                //         width: 110,
+                                //         child: Column(
+                                //           crossAxisAlignment:
+                                //               CrossAxisAlignment.start,
+                                //           children: [
+                                //             const Text(
+                                //               'Seerat a Sahaba',
+                                //               style: TextStyle(
+                                //                   fontSize: 14,
+                                //                   fontWeight: FontWeight.w400),
+                                //             ),
+                                //             const SizedBox(
+                                //               height: 5,
+                                //             ),
+                                //             const Text(
+                                //               'Hazarat Saad Bin',
+                                //               style: TextStyle(
+                                //                   fontSize: 10,
+                                //                   fontWeight: FontWeight.w400),
+                                //             ),
+                                //             Row(
+                                //               children: const [
+                                //                 Icon(
+                                //                   Icons.favorite,
+                                //                   color: Colors.red,
+                                //                   size: 15,
+                                //                 ),
+                                //                 Text(
+                                //                   '00',
+                                //                   style:
+                                //                       TextStyle(fontSize: 10),
+                                //                 ),
+                                //                 Icon(
+                                //                   Icons.headphones,
+                                //                   color: Colors.black,
+                                //                   size: 15,
+                                //                 ),
+                                //                 Text(
+                                //                   '00',
+                                //                   style:
+                                //                       TextStyle(fontSize: 10),
+                                //                 ),
+                                //                 // SizedBox(
+                                //                 //   width: 16,
+                                //                 // ),
+                                //                 // Icon(
+                                //                 //   Icons.play_circle,
+                                //                 //   color: Colors.blue,
+                                //                 //   size: 40,
+                                //                 // )
+                                //               ],
+                                //             )
+                                //           ],
+                                //         ),
+                                //       ),
+                                //       const SizedBox(
+                                //         width: 20,
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                               ),
                             );
                           })),

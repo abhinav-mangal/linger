@@ -636,7 +636,10 @@ class AppRepositoryImple extends AppRepository {
       {required String token,
       required String productId,
       required String status,
-      int? quantity}) async {
+      int? quantity,
+      String? color,
+      String? size,
+      }) async {
     if (await connectivityService.hasInternetConnectivity()) {
       try {
         final res = await appDataSource.addProductInCart(

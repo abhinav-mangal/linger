@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:linger/Basepackage/baseclass.dart';
-import 'package:linger/ui/ForgetEmailOtpPassword.dart';
+import 'package:linger/Controller/controller_update_password.dart';
 import 'package:linger/Utils/colors.dart';
-import 'package:flutter/services.dart';
+
+import '../cubits/profile_cubit/profile_cubit.dart';
 
 class EmailPassword extends StatefulWidget {
   const EmailPassword({Key? key}) : super(key: key);
@@ -12,7 +15,16 @@ class EmailPassword extends StatefulWidget {
 }
 
 class _EmailPasswordState extends State<EmailPassword> with baseclass {
-  TextEditingController emailController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  UpdatePasswordController controller = Get.put(UpdatePasswordController());
+  late final ProfileCubit profileCubit;
+
+  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    profileCubit = context.read<ProfileCubit>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,21 +60,31 @@ class _EmailPasswordState extends State<EmailPassword> with baseclass {
                 textAlign: TextAlign.left,
               ),
             ),
-            TextField(
-              decoration: const InputDecoration(hintText: "Enter your Email"),
-              controller: emailController,
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ], // Only numbers can be entered
+            Form(
+              key: _formKey,
+              child: TextFormField(
+                decoration: const InputDecoration(hintText: "Enter your Email"),
+                controller: controller.email,
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your email id";
+                  } else if (!value.isEmail) {
+                    return "Please enter a valid email id";
+                  }
+                  return null;
+                },
+              ),
             ),
             const SizedBox(
               height: 40,
             ),
             InkWell(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const EmailOtpPassword()));
+                  if (_formKey.currentState!.validate()) {
+                    profileCubit.isForgot = true;
+                    controller.updatePasswordEmail(context);
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linger/Basepackage/baseclass.dart';
-import 'package:linger/data/model/my_order/datum.dart';
-import 'package:linger/data/model/my_order/morder.dart';
 import 'package:linger/locator.dart';
 import 'package:linger/router/app_routes.gr.dart';
+import 'package:linger/ui/orders/view/order_cancel_screen.dart';
 import 'package:linger/ui/orders/view/order_item_view.dart';
 import 'package:linger/ui/orders/view/product_order_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -12,10 +11,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../Utils/colors.dart';
 import '../../Utils/customText.dart';
 import '../../cubits/shop/shop_cubit.dart';
-import '../homepage.dart';
-import '../shope/ShopScreen.dart';
 import '../widgets/screen_conatiner.dart';
-import 'ordersscreen.dart';
 
 class OrderStatusScreen extends StatefulWidget {
   const OrderStatusScreen({Key? key, this.oid}) : super(key: key);
@@ -446,7 +442,12 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> with baseclass {
                         )
                       : GestureDetector(
                           onTap: () {
-                            shopcubit.cancelOrderById(context, widget.oid!);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        OrderCancelScreen(oid: widget.oid)));
+                            // shopcubit.cancelOrderById(context, widget.oid!);
                           },
                           child: Container(
                             height: getH(56),

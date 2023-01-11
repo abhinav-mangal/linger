@@ -76,8 +76,8 @@ class _OtpPasswordState extends State<OtpPassword> with baseclass {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ResetPassword()));
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => const ResetPassword()));
               },
               child: Container(
                 width: size.width,
@@ -94,8 +94,8 @@ class _OtpPasswordState extends State<OtpPassword> with baseclass {
             // Text('Resend OTP in $resendOtp', style: TextStyle(),),
             InkWell(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ResetPassword()));
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => const ResetPassword()));
                 },
                 child: Container(
                   alignment: Alignment.center,

@@ -77,8 +77,8 @@ class _EmailOtpPasswordState extends State<EmailOtpPassword> with baseclass {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ResetPassword()));
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => const ResetPassword()));
               },
               child: Container(
                 width: size.width,

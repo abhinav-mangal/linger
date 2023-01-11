@@ -7,6 +7,8 @@ class ShopProduct extends Equatable {
   final String? saleprice;
   final int? quantity;
   final String? discountprice;
+  final String? color;
+  final String? size;
   final int? likeStatus;
   final List<String>? galleryFile;
   final String? video;
@@ -26,6 +28,8 @@ class ShopProduct extends Equatable {
     this.image,
     this.saleprice,
     this.discountprice,
+    this.color,
+    this.size,
     this.likeStatus,
     this.description,
     this.shortDetails,
@@ -46,6 +50,8 @@ class ShopProduct extends Equatable {
       image: json['image'] as String?,
       saleprice: json['saleprice'] as String?,
       discountprice: json['discountprice'] as String?,
+      color: json['color'] as String?,
+      size: json['size'] as String?,
       isLiked: json['like_status'] != null
           ? json['like_status'].toString() == "1"
               ? true
@@ -73,6 +79,8 @@ class ShopProduct extends Equatable {
         'quantity': quantity,
         'saleprice': saleprice,
         'discountprice': discountprice,
+        'color': color,
+        'size': size,
         'like_status': likeStatus,
         'gallery_image': galleryFile,
         'rating': rating,
@@ -89,6 +97,8 @@ class ShopProduct extends Equatable {
     String? saleprice,
     int? quantity,
     String? discountprice,
+    String? color,
+    String? size,
     int? likeStatus,
     List<String>? galleryFile,
     String? rating,
@@ -106,6 +116,8 @@ class ShopProduct extends Equatable {
       saleprice: saleprice ?? this.saleprice,
       quantity: quantity ?? this.quantity,
       discountprice: discountprice ?? this.discountprice,
+      color: color ?? this.color,
+      size: size ?? this.size,
       likeStatus: likeStatus ?? this.likeStatus,
       galleryFile: galleryFile ?? this.galleryFile,
       rating: rating ?? this.rating,
@@ -126,6 +138,8 @@ class ShopProduct extends Equatable {
       saleprice,
       quantity,
       discountprice,
+      color,
+      size,
       likeStatus,
       galleryFile,
       rating,

@@ -258,7 +258,7 @@ class ShopCubit extends Cubit<ShopState> {
     });
   }
 
-  void cancelOrderById(BuildContext context, String productId) async {
+  Future<void> cancelOrderById(BuildContext context, String productId) async {
     emit(state.copyWith(
       loading: true,
     ));
@@ -279,7 +279,6 @@ class ShopCubit extends Cubit<ShopState> {
       return false;
     }, (r) async {
       await getMyOrders();
-      Navigator.pop(context);
       return true;
     });
     return null;
@@ -290,6 +289,8 @@ class ShopCubit extends Cubit<ShopState> {
     required int productId,
     int? quantity,
     String? status,
+    String? color,
+    String? size,
   }) async {
     if (state.processing ?? false) {
       return null;
@@ -306,6 +307,8 @@ class ShopCubit extends Cubit<ShopState> {
       productId: productId.toString(),
       status: status ?? (isProductOnCart ? '0' : '1'),
       quantity: quantity,
+      color: color,
+      size: size,
     );
 
     emit(state.copyWith(
@@ -645,16 +648,15 @@ class ShopCubit extends Cubit<ShopState> {
     ProgressUtil.showProgress(context: context);
 
     final response = await dataRepo.makeOrder(
-      token: myToken ?? '',
-      address: address,
-      paymentMethod: paymentMethod,
-      shippingTotal: shippingTotal,
-      subTotal: subTotal,
-      total: total,
-      paymentStatus: paymentStatus,
-      paymentId: paymentId,
-      couponCode: couponCode
-    );
+        token: myToken ?? '',
+        address: address,
+        paymentMethod: paymentMethod,
+        shippingTotal: shippingTotal,
+        subTotal: subTotal,
+        total: total,
+        paymentStatus: paymentStatus,
+        paymentId: paymentId,
+        couponCode: couponCode);
 
     await getCartData();
 

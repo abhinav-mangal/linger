@@ -61,7 +61,7 @@ class _OtpScreenState extends State<OtpScreen> with baseclass {
                 ),
               ),
               title: const Text(
-                'Create Account',
+                'Verify Otp',
                 style: TextStyle(color: Colors.black),
               ),
               backgroundColor: Colors.white,
@@ -89,10 +89,11 @@ class _OtpScreenState extends State<OtpScreen> with baseclass {
                     ),
                     currentCode: '',
                     onCodeSubmitted: (code) {
+                      
                       profileCubit.verifyOTP(
-                        context,
-                        state.user?.user?.otp ?? '',
-                      );
+                          context,
+                          // state.user?.user?.otp ?? '',
+                          code);
                     },
                     onCodeChanged: (code) {},
                     controller: otpController,
@@ -121,7 +122,7 @@ class _OtpScreenState extends State<OtpScreen> with baseclass {
                       onTap: () {
                         profileCubit.verifyOTP(
                           context,
-                          state.user?.user?.otp ?? '',
+                          otpController.text,
                         );
                       },
                       child: Container(

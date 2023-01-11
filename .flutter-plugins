@@ -1,6 +1,8 @@
 # This is a generated file; do not edit or check into version control.
 assets_audio_player=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\assets_audio_player-3.0.5\\
 assets_audio_player_web=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\assets_audio_player_web-3.0.5\\
+audio_service=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\audio_service-0.18.9\\
+audio_service_web=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\audio_service_web-0.1.1\\
 audio_session=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\audio_session-0.1.13\\
 auto_orientation=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\auto_orientation-2.2.1\\
 cloud_firestore_web=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore_web-3.0.3\\
@@ -36,6 +38,8 @@ just_audio_web=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\just_au
 libphonenumber=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\libphonenumber-2.0.2\\
 libphonenumber_plugin=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\libphonenumber_plugin-0.2.3\\
 libphonenumber_web=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\libphonenumber_web-0.2.0+1\\
+on_audio_query=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\on_audio_query-2.6.1\\
+on_audio_query_web=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\on_audio_query_web-1.3.2+2\\
 package_info_plus=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\package_info_plus-1.4.3+1\\
 package_info_plus_linux=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\package_info_plus_linux-1.0.5\\
 package_info_plus_macos=C:\\tools\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\package_info_plus_macos-1.3.0\\

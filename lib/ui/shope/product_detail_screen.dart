@@ -45,13 +45,14 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen>
     with baseclass {
   final currentPageNotifier = ValueNotifier<int>(0);
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
   String url =
       "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4";
   String url1 =
       'https://img.freepik.com/free-photo/young-indian-guy-with-hands-up-dancing-white-wall-isolated_1157-47469.jpg?w=2000';
   late final ShopCubit shopCubit;
   late final ProductDetailVewCubit productDetailVewCubit;
+  late final ShopProduct product;
   // late final ProductViewCubit productViewCubit;
   int currentPage = 0;
 
@@ -545,7 +546,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                                   ),
                                   Column(
                                     children: List.generate(
-                                      reviews!.length,
+                                      reviews!.length >= 3 ? 3 : reviews.length,
                                       (index) => Padding(
                                         padding:
                                             const EdgeInsets.only(top: 5.0),
@@ -683,7 +684,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                                           context,
                                           MaterialPageRoute(
                                               builder: (_) =>
-                                                  const ReviewProductScreen()));
+                                                  ReviewProductScreen(
+                                                      data: state
+                                                          .productDetailModel
+                                                          ?.data
+                                                          ?.review)));
                                     },
                                     child: Text(
                                       'View all ($torev)',
@@ -738,10 +743,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                                         physics: const BouncingScrollPhysics(),
                                         child: Row(
                                           children: List.generate(
-                                            relPro.length ?? 0,
+                                            relPro.length,
                                             (index) => ProductView(
                                               onProductUpdate: (value) {},
-                                              product: relPro![index],
+                                              product: relPro[index],
                                             ),
                                           ),
                                         ),

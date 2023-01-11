@@ -73,7 +73,7 @@ class MyAnimatedSplashScreen extends StatefulWidget {
     Future Function()? function,
     int duration = 2500,
     required dynamic splash,
-    required Widget nextScreen,
+    Widget? nextScreen,
     Color backgroundColor = Colors.white,
     Animatable? customTween,
     bool centered = true,

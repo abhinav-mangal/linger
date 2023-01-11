@@ -8,6 +8,7 @@ import 'package:linger/Utils/flushbar_notification.dart';
 import 'package:linger/cubits/signup_cubit/signup_controller_cubit.dart';
 import 'package:linger/router/route_names.dart';
 import 'package:linger/services/firebase_auth_service.dart';
+import 'package:linger/ui/ForgetNumberResetPassword.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import '../../../../../locator.dart';
 import '../../../../../router/app_routes.gr.dart';
@@ -28,6 +29,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   final router = getItInjector<AppRouter>();
   final dataRepo = getItInjector<AppRepository>();
   final ImagePicker _picker = ImagePicker();
+  bool isForgot = false;
 
   void authenticate() async {
     final response = await dataRepo.getUserSessionData();
@@ -117,10 +119,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     return null;
   }
 
-  void verifyOTP(
-    BuildContext context,
-    String otp,
-  ) async {
+  void verifyOTP(BuildContext context, String otp,
+      ) async {
     context.loaderOverlay.show(widget: const CupertinoActivityIndicator());
     final loginRes = await dataRepo.verifyOTP(
         otp: otp, userId: state.user?.user?.id.toString() ?? '');
@@ -138,8 +138,10 @@ class ProfileCubit extends Cubit<ProfileState> {
                     user: UserData(id: r.data?.id, otp: r.data?.otp))));
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text('${r.massage}')));
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const CreateAccount()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => isForgot
+                    ? ResetPassword(id: r.data!.id!,)
+                    : const CreateAccount()));
           } else {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text('${r.massage}')));

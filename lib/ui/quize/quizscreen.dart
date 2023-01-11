@@ -229,8 +229,13 @@ class _QuizScreenState extends State<QuizScreen> with baseclass {
                     backgroundColor: Colors.white,
                     child: CircleAvatar(
                       radius: 25,
-                      foregroundImage: CachedNetworkImageProvider(
-                          controller.profileData!.user!.image ?? ""),
+                      backgroundColor: Colors.white,
+                      foregroundImage:
+                          CachedNetworkImageProvider(controller.profileData!.user!.image!),
+                      backgroundImage:
+                          const AssetImage("assets/images/no_image.webp"),
+                      // foregroundImage: CachedNetworkImageProvider(
+                      //     controller.profileData!.user!.image ?? ""),
                     ),
                   ),
                   const SizedBox(height: 10),

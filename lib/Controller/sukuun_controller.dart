@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:linger/models/sukoon_category_model.dart';
 import 'package:linger/models/sukoon_home_model.dart';
 import 'package:linger/models/sukoon_model.dart';
@@ -22,6 +23,9 @@ class SukoonController extends GetxController {
   SukoonSubCategoryData? sukoonSubCategoryData;
   var sukoonData = <SukoonData>[].obs;
   List<SukoonSubCategoryBanner> banner = [];
+  final AudioPlayer audioPlayer = AudioPlayer();
+
+  int? likeSatus;
 
   @override
   void onInit() async {
@@ -108,6 +112,32 @@ class SukoonController extends GetxController {
       var data = SukoonModel.fromJson(json.decode(res.body));
       if (data.success!) {
         sukoonData.value = data.data!;
+        isLoading02(false);
+      } else {
+        isLoading02(false);
+      }
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      isLoading02(false);
+    } finally {
+      isLoading02(false);
+    }
+  }
+
+  Future sukoonLike(int id, int status) async {
+    String token = GetStorage().read('token');
+    try {
+      var res = await http.post(
+          Uri.parse("${APIEndPoints.BASE_URL}user/sukoon-like"),
+          body: {"is_sukoon": "$id", "status": "$status"},
+          headers: {'Authorization': 'Bearer $token'});
+      // var data = SukoonModel.fromJson(json.decode(res.body));
+      var data = json.decode(res.body);
+      if (data["success"]) {
+        likeSatus = data["data"];
+        update();
+        refresh();
+        // sukoonData.value = data.data!;
         isLoading02(false);
       } else {
         isLoading02(false);

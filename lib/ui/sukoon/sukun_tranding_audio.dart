@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linger/Controller/sukuun_controller.dart';
+import 'package:linger/ui/sukoon/audio_player.dart';
 import 'package:linger/ui/sukoon/seerat_e_sahaba.dart';
 import 'package:linger/ui/sukoon/trending_categories.dart';
 
@@ -16,9 +17,11 @@ class SukunTrendingAudio extends StatefulWidget {
 
 class _SukunTrendingAudioState extends State<SukunTrendingAudio> {
   SukoonController controller = Get.put(SukoonController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -45,10 +48,25 @@ class _SukunTrendingAudioState extends State<SukunTrendingAudio> {
                         shrinkWrap: true,
                         itemCount: 3,
                         itemBuilder: ((context, index) {
-                          return Center(
+                          return InkWell(
+                            onTap: () async {
+                              if (controller.audioPlayer.playing) {
+                                await controller.audioPlayer.stop();
+                              }
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NowPlaying(
+                                            audioPlayer: controller.audioPlayer,
+                                            initialIndex: index,
+                                            songModelList:
+                                                controller.sukoonHomeTrending,
+                                          )));
+                            },
                             child: Card(
-                              elevation: 0,
-                              shape: BeveledRectangleBorder(
+                              elevation: 4,
+                              shadowColor: Colors.grey.withOpacity(0.2),
+                              shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Container(
@@ -92,12 +110,15 @@ class _SukunTrendingAudioState extends State<SukunTrendingAudio> {
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          const Text(
-                                            'Hazarat Saad Bin',
-                                            style: TextStyle(
+                                          Text(
+                                            controller.sukoonHomeTrending[index]
+                                                    .subCategoryName ??
+                                                "",
+                                            style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w400),
                                           ),
+                                          const SizedBox(height: 5),
                                           Row(
                                             children: const [
                                               Icon(
@@ -122,12 +143,12 @@ class _SukunTrendingAudioState extends State<SukunTrendingAudio> {
                                                 '00',
                                                 style: TextStyle(fontSize: 10),
                                               ),
-                                              Spacer(),
-                                              Icon(
-                                                Icons.play_circle,
-                                                color: Colors.blue,
-                                                size: 41,
-                                              )
+                                              // Spacer(),
+                                              // Icon(
+                                              //   Icons.play_circle,
+                                              //   color: Colors.blue,
+                                              //   size: 41,
+                                              // )
                                             ],
                                           )
                                         ],
@@ -258,16 +279,26 @@ class _SukunTrendingAudioState extends State<SukunTrendingAudio> {
                                     childAspectRatio: 1 / 2.5),
                             itemBuilder: ((context, index) {
                               return InkWell(
-                                onTap: (() {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (_) => const ()));
-                                }),
+                                onTap: () async {
+                                  if (controller.audioPlayer.playing) {
+                                    await controller.audioPlayer.stop();
+                                  }
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => NowPlaying(
+                                                audioPlayer:
+                                                    controller.audioPlayer,
+                                                initialIndex: index,
+                                                songModelList: controller
+                                                    .sukoonHomeTrending,
+                                              )));
+                                },
                                 child: Center(
                                   child: Card(
-                                    elevation: 0,
-                                    shape: BeveledRectangleBorder(
+                                    elevation: 4,
+                                    shadowColor: Colors.grey.withOpacity(0.2),
+                                    shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Container(
@@ -327,9 +358,12 @@ class _SukunTrendingAudioState extends State<SukunTrendingAudio> {
                                                 const SizedBox(
                                                   height: 5,
                                                 ),
-                                                const Text(
-                                                  'Hazarat Saad Bin',
-                                                  style: TextStyle(
+                                                Text(
+                                                  controller
+                                                          .sukoonHomeTrending[0]
+                                                          .subCategoryName ??
+                                                      "",
+                                                  style: const TextStyle(
                                                       fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.w400),
@@ -337,29 +371,29 @@ class _SukunTrendingAudioState extends State<SukunTrendingAudio> {
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      height: 4,
-                                                      width: 130,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                              color:
-                                                                  Colors.red),
-                                                    ),
-                                                    const Text(
-                                                      '100%',
-                                                      style: TextStyle(
-                                                          fontSize: 10),
-                                                    ),
-                                                    const Spacer(),
-                                                    const Icon(
-                                                      Icons.play_circle,
-                                                      color: Colors.blue,
-                                                      size: 30,
-                                                    )
-                                                  ],
-                                                ),
+                                                // Row(
+                                                //   children: [
+                                                //     Container(
+                                                //       height: 4,
+                                                //       width: 130,
+                                                //       decoration:
+                                                //           const BoxDecoration(
+                                                //               color:
+                                                //                   Colors.red),
+                                                //     ),
+                                                //     const Text(
+                                                //       '100%',
+                                                //       style: TextStyle(
+                                                //           fontSize: 10),
+                                                //     ),
+                                                //     const Spacer(),
+                                                //     const Icon(
+                                                //       Icons.play_circle,
+                                                //       color: Colors.blue,
+                                                //       size: 30,
+                                                //     )
+                                                //   ],
+                                                // ),
                                               ],
                                             ),
                                           ),

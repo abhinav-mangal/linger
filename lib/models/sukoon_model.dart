@@ -27,54 +27,47 @@ class SukoonModel {
 
 class SukoonData {
   final int? id;
-  final String? image;
-  final String? audio;
   final String? title;
   final String? name;
+  final String? categoryName;
+  final String? subCategoryName;
+  final String? image;
+  final String? audio;
   final int? totalLike;
-  final List<Like>? like;
+  final int? like;
 
   SukoonData({
     this.id,
-    this.image,
-    this.audio,
     this.title,
     this.name,
+    this.categoryName,
+    this.subCategoryName,
+    this.image,
+    this.audio,
     this.totalLike,
     this.like,
   });
 
   SukoonData.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
-      image = json['image'] as String?,
-      audio = json['audio'] as String?,
       title = json['title'] as String?,
       name = json['name'] as String?,
+      categoryName = json['category_name'] as String?,
+      subCategoryName = json['sub_category_name'] as String?,
+      image = json['image'] as String?,
+      audio = json['audio'] as String?,
       totalLike = json['total_like'] as int?,
-      like = (json['Like'] as List?)?.map((dynamic e) => Like.fromJson(e as Map<String,dynamic>)).toList();
+      like = json['like'] as int?;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
-    'image' : image,
-    'audio' : audio,
     'title' : title,
     'name' : name,
+    'category_name' : categoryName,
+    'sub_category_name' : subCategoryName,
+    'image' : image,
+    'audio' : audio,
     'total_like' : totalLike,
-    'Like' : like?.map((e) => e.toJson()).toList()
-  };
-}
-
-class Like {
-  final int? status;
-
-  Like({
-    this.status,
-  });
-
-  Like.fromJson(Map<String, dynamic> json)
-    : status = json['status'] as int?;
-
-  Map<String, dynamic> toJson() => {
-    'status' : status
+    'like' : like
   };
 }

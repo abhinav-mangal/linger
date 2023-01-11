@@ -119,11 +119,14 @@ abstract class AppRepository {
 
   Future<Either<Failure, MyCart?>> getMyCart({required String token});
 
-  Future<Either<Failure, PostResponseModel?>> addProductInCart(
-      {required String token,
-      required String productId,
-      required String status,
-      int? quantity});
+  Future<Either<Failure, PostResponseModel?>> addProductInCart({
+    required String token,
+    required String productId,
+    required String status,
+    int? quantity,
+    String? color,
+    String? size,
+  });
 
   Future<Either<Failure, PostResponseModel?>> likeProducts(
       {required String token,

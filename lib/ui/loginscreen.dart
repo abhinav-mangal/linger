@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:linger/Basepackage/baseclass.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linger/Controller/google_login_controller.dart';
 import 'package:linger/Utils/CustomEdits.dart';
+import 'package:linger/Utils/flushbar_notification.dart';
 import 'package:linger/ui/PasswordScreen.dart';
 import 'package:linger/Utils/colors.dart';
 import 'package:linger/Utils/common_logics.dart';
@@ -20,6 +22,8 @@ import '../router/app_routes.gr.dart';
 import '../router/route_names.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -30,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> with baseclass {
   TextEditingController passwordController = TextEditingController();
   late final SignInCubit signInCubit;
   Decoration dec = const BoxDecoration();
-  final googleSignIn = GoogleSignIn();
   final FirebaseAuth auth = FirebaseAuth.instance;
   GoogleLoginController controller = Get.put(GoogleLoginController());
 
@@ -296,24 +299,23 @@ class _LoginScreenState extends State<LoginScreen> with baseclass {
                             SizedBox(
                               height: 3.8.h,
                             ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
-                              decoration: dec,
-                              child: socialmediabutton('Glogo.png', "Google",
-                                  () async {
-                                await signup(context);
-                              }, getColorFromHex(ColorConstants.greycolor),
-                                  false),
-                            ),
+                            // Container(
+                            //   margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
+                            //   decoration: dec,
+                            //   child: socialmediabutton('Glogo.png', "Google",
+                            //       () async {
+                            //     await signup(context);
+                            //   }, getColorFromHex(ColorConstants.greycolor),
+                            //       false),
+                            // ),
 
                             Container(
                               margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
                               decoration: dec,
-                              child: socialmediabutton(
-                                  'Fblogo.png',
-                                  "Facebook",
-                                  () {},
-                                  getColorFromHex(ColorConstants.greycolor),
+                              child: socialmediabutton('Fblogo.png', "Facebook",
+                                  () async {
+                                await initiateFacebookLogin();
+                              }, getColorFromHex(ColorConstants.greycolor),
                                   false),
                             ),
                           ],
@@ -347,6 +349,19 @@ class _LoginScreenState extends State<LoginScreen> with baseclass {
         ),
       ),
     );
+  }
+
+  Future<void> initiateFacebookLogin() async {
+    final LoginResult result = await FacebookAuth.instance.login();
+    if (result.status == LoginStatus.success) {
+      final userData = await FacebookAuth.instance.getUserData();
+      var email = userData["email"];
+      var name = userData["name"];
+      var id = userData["id"];
+      controller.sendData(name: name, email: email, uid: id);
+    } else {
+      FlushBarNotification.showSnack(title: result.message);
+    }
   }
 
   Future<void> signup(BuildContext context) async {

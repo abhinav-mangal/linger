@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linger/Controller/sukuun_controller.dart';
+import 'package:linger/ui/sukoon/audio_player.dart';
 import 'package:linger/ui/sukoon/seerat_e_sahaba.dart';
 
 class TrendingCategories extends StatefulWidget {
@@ -19,6 +20,7 @@ class _TrendingCategoriesState extends State<TrendingCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -55,7 +57,7 @@ class _TrendingCategoriesState extends State<TrendingCategories> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (_) => Seerat_e_Sahaba(
-                                        title: controller
+                                          title: controller
                                               .sukoonCategories[index].name!,
                                           cid: controller
                                               .sukoonCategories[index].id!)));
@@ -124,10 +126,25 @@ class _TrendingCategoriesState extends State<TrendingCategories> {
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 1, childAspectRatio: 1 / 2.52),
                         itemBuilder: ((context, index) {
-                          return Center(
+                          return InkWell(
+                            onTap: () async {
+                              if (controller.audioPlayer.playing) {
+                                await controller.audioPlayer.stop();
+                              }
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => NowPlaying(
+                                          initialIndex: index,
+                                          songModelList:
+                                              controller.sukoonMostLikes,
+                                          audioPlayer:
+                                              controller.audioPlayer)));
+                            },
                             child: Card(
-                              elevation: 0,
-                              shape: BeveledRectangleBorder(
+                              elevation: 4,
+                              shadowColor: Colors.grey.withOpacity(0.2),
+                              shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Container(
@@ -177,6 +194,7 @@ class _TrendingCategoriesState extends State<TrendingCategories> {
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w400),
                                           ),
+                                          const SizedBox(height: 5),
                                           Row(
                                             children: const [
                                               Icon(
@@ -197,16 +215,16 @@ class _TrendingCategoriesState extends State<TrendingCategories> {
                                                 '00',
                                                 style: TextStyle(fontSize: 10),
                                               ),
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                              Expanded(
-                                                child: Icon(
-                                                  Icons.play_circle,
-                                                  color: Colors.blue,
-                                                  size: 40,
-                                                ),
-                                              )
+                                              // SizedBox(
+                                              //   width: 16,
+                                              // ),
+                                              // Expanded(
+                                              //   child: Icon(
+                                              //     Icons.play_circle,
+                                              //     color: Colors.blue,
+                                              //     size: 40,
+                                              //   ),
+                                              // )
                                             ],
                                           )
                                         ],

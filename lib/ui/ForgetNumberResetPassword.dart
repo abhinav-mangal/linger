@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:linger/Basepackage/baseclass.dart';
+import 'package:linger/Controller/controller_update_password.dart';
 import 'package:linger/Utils/colors.dart';
 
 class ResetPassword extends StatefulWidget {
-  const ResetPassword({Key? key}) : super(key: key);
+  final int id;
+  const ResetPassword({Key? key, required this.id}) : super(key: key);
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
@@ -11,6 +14,7 @@ class ResetPassword extends StatefulWidget {
 
 class _ResetPasswordState extends State<ResetPassword> with baseclass {
   bool _isPasswordVisible = true;
+  UpdatePasswordController controller = Get.put(UpdatePasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +58,7 @@ class _ResetPasswordState extends State<ResetPassword> with baseclass {
                       height: 10,
                     ),
                     TextField(
+                      controller: controller.newPassword,
                       obscureText: _isPasswordVisible,
                       decoration: InputDecoration(
                         enabledBorder: const UnderlineInputBorder(
@@ -94,6 +99,7 @@ class _ResetPasswordState extends State<ResetPassword> with baseclass {
                 ),
                 InkWell(
                     onTap: () {
+                      controller.updatePassword(uid: widget.id, context: context);
                       // Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateAccount()));
                     },
                     child: Container(

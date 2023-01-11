@@ -140,9 +140,9 @@ class _ProfileFreeScreenState extends State<ProfileFreeScreen> with baseclass {
                                           radius: innerWidth / 7.4,
                                           foregroundImage:
                                               CachedNetworkImageProvider(
-                                                  use.user!.image != null
-                                                      ? use.user!.image!
-                                                      : "12"),
+                                                  use.user!.image!),
+                                          backgroundImage: const AssetImage(
+                                              "assets/images/no_image.webp"),
                                         ),
                                       ),
                                     ),

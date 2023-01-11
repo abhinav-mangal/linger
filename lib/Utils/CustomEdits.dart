@@ -38,12 +38,15 @@ class CustomEditText extends StatelessWidget {
 
   var submitfuction;
   List<TextInputFormatter> inputform;
+  void Function()? onTap;
 
   Function(String values)? checkmethod;
   final EdgeInsets? padding;
+  
+  bool readOnly = false;
 
   CustomEditText(
-      {this.text = "",
+      {Key? key, this.text = "",
       this.height,
       this.textcolor = Colors.black,
       this.textsize = 14.0,
@@ -78,7 +81,10 @@ class CustomEditText extends StatelessWidget {
       this.inputform = const [],
       this.validatemethod,
       this.weight,
-      this.padding});
+      this.padding,
+      this.readOnly = false,
+      this.onTap,
+      }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +118,8 @@ class CustomEditText extends StatelessWidget {
             focusNode: focusNode,
             textInputAction: inputaction,
             enabled: enableeditmode,
+            readOnly: readOnly,
+            onTap: onTap,
             decoration: InputDecoration(
               filled: true,
               fillColor: fillColor,

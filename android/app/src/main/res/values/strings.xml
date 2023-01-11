@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Linger</string>
-    <string name="facebook_app_id">847313976255805</string>
-    <string name="fb_login_protocol_scheme">e2f6dbed150002ecfb855c012d3dcfd4</string>
+    <string name="facebook_app_id">885949609031586</string>
+    <string name="facebook_client_token">e8175fca926658b2bacc4d2eb19707eb</string>
+    <string name="fb_login_protocol_scheme">fb885949609031586</string>
 </resources>

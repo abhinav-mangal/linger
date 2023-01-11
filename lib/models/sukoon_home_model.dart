@@ -46,52 +46,48 @@ class SukoonHomeData {
 
 class SukoonHomeTrending {
   final int? id;
-  final int? userId;
+  final String? title;
+  final dynamic name;
+  final dynamic categoryName;
+  final dynamic subCategoryName;
   final String? image;
   final String? audio;
-  final String? title;
-  final String? createdAt;
-  final String? updatedAt;
-  final int? cid;
-  final int? sid;
-  final int? lid;
+  final int? totalLike;
+  final int? like;
 
   SukoonHomeTrending({
     this.id,
-    this.userId,
+    this.title,
+    this.name,
+    this.categoryName,
+    this.subCategoryName,
     this.image,
     this.audio,
-    this.title,
-    this.createdAt,
-    this.updatedAt,
-    this.cid,
-    this.sid,
-    this.lid,
+    this.totalLike,
+    this.like,
   });
 
   SukoonHomeTrending.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
-      userId = json['user_id'] as int?,
+      title = json['title'] as String?,
+      name = json['name'],
+      categoryName = json['category_name'],
+      subCategoryName = json['sub_category_name'],
       image = json['image'] as String?,
       audio = json['audio'] as String?,
-      title = json['title'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?,
-      cid = json['cid'] as int?,
-      sid = json['sid'] as int?,
-      lid = json['lid'] as int?;
+      totalLike = json['total_like'] as int?,
+      like = json['like'] as int?;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
-    'user_id' : userId,
+    'title' : title,
+    'name' : name,
+    'category_name' : categoryName,
+    'sub_category_name' : subCategoryName,
     'image' : image,
     'audio' : audio,
-    'title' : title,
-    'created_at' : createdAt,
-    'updated_at' : updatedAt,
-    'cid' : cid,
-    'sid' : sid,
-    'lid' : lid
+    'total_like' : totalLike,
+    'like' : like
   };
 }
 

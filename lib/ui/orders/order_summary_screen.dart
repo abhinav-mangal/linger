@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +47,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
   late final ProfileCubit profileCubit;
 
   int? couponAmount;
+  bool couponApplied = false;
 
   @override
   void initState() {
@@ -463,6 +463,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                           padding: EdgeInsets.fromLTRB(2.w, 1.h, 2.w, 1.h),
                           child: TextFormField(
                             controller: couponController,
+                            readOnly: couponApplied,
                             decoration: InputDecoration(
                                 hintText: 'Enter discount code...',
                                 hintStyle: TextStyle(fontSize: 17.sp),
@@ -479,25 +480,35 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                                   initState: (_) {},
                                   builder: (controller) {
                                     return InkWell(
-                                      onTap: () async {
-                                        int? amount = await controller
-                                            .getData(couponController.text);
-                                        if (amount != null) {
-                                          FlushBarNotification.showSnack(
-                                            title: "Applied Successfully!",
-                                          );
-                                          setState(() {
-                                            couponAmount = amount;
-                                            GetStorage().write("couponCode",
-                                                couponController.text);
-                                          });
-                                        } else {
-                                          FlushBarNotification.showSnack(
-                                            title: "Invalid Coupon!",
-                                          );
-                                        }
-                                      },
-                                      child: const Text("Apply"),
+                                      onTap: couponApplied
+                                          ? null
+                                          : () async {
+                                              int? amount =
+                                                  await controller.getData(
+                                                      couponController.text);
+                                              if (amount != null) {
+                                                FlushBarNotification.showSnack(
+                                                  title:
+                                                      "Applied Successfully!",
+                                                );
+                                                setState(() {
+                                                  couponApplied = true;
+                                                  couponAmount = amount;
+                                                  FocusManager
+                                                      .instance.primaryFocus
+                                                      ?.unfocus();
+                                                  GetStorage().write(
+                                                      "couponCode",
+                                                      couponController.text);
+                                                });
+                                              } else {
+                                                FlushBarNotification.showSnack(
+                                                  title: "Invalid Coupon!",
+                                                );
+                                              }
+                                            },
+                                      child: Text(
+                                          couponApplied ? "Applied" : "Apply"),
                                     );
                                   },
                                 )),
@@ -677,14 +688,14 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                                           ),
                                         ),
                                         TextSpan(
-                                            text: 'Privacy Policy ',
-                                            style: theme.textTheme.titleLarge
-                                                ?.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily: 'SF Pro Display',
-                                              fontSize: 13.sp,
-                                            ),
-                                            ),
+                                          text: 'Privacy Policy ',
+                                          style: theme.textTheme.titleLarge
+                                              ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'SF Pro Display',
+                                            fontSize: 13.sp,
+                                          ),
+                                        ),
                                         TextSpan(
                                           text:
                                               'of Linger Shop. Payment will be processed separately by RazorPay according to ',
@@ -779,6 +790,10 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                                       "${shopcubit.state.orderSummaryModel?.data?.subTotal}",
                                   total:
                                       "${shopcubit.state.orderSummaryModel?.data?.total}",
+                                  couponCode: couponApplied
+                                      ? couponController.text
+                                      : "",
+                                      paymentId: ""
                                 );
 
                                 // Navigator.push(

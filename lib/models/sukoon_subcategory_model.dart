@@ -49,17 +49,29 @@ class SukoonSubCategoryData {
 }
 
 class SukoonSubCategoryBanner {
+  final int? id;
   final String? image;
+  final String? createdAt;
+  final String? updatedAt;
 
   SukoonSubCategoryBanner({
+    this.id,
     this.image,
+    this.createdAt,
+    this.updatedAt,
   });
 
   SukoonSubCategoryBanner.fromJson(Map<String, dynamic> json)
-    : image = json['image'] as String?;
+    : id = json['id'] as int?,
+      image = json['image'] as String?,
+      createdAt = json['created_at'] as String?,
+      updatedAt = json['updated_at'] as String?;
 
   Map<String, dynamic> toJson() => {
-    'image' : image
+    'id' : id,
+    'image' : image,
+    'created_at' : createdAt,
+    'updated_at' : updatedAt
   };
 }
 
@@ -71,6 +83,7 @@ class SubCategory {
   final int? cid;
   final String? createdAt;
   final String? updatedAt;
+  final String? subcategoryName;
 
   SubCategory({
     this.id,
@@ -80,6 +93,7 @@ class SubCategory {
     this.cid,
     this.createdAt,
     this.updatedAt,
+    this.subcategoryName,
   });
 
   SubCategory.fromJson(Map<String, dynamic> json)
@@ -89,7 +103,8 @@ class SubCategory {
       status = json['status'] as int?,
       cid = json['cid'] as int?,
       createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?;
+      updatedAt = json['updated_at'] as String?,
+      subcategoryName = json['subcategory_name'] as String?;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
@@ -98,57 +113,54 @@ class SubCategory {
     'status' : status,
     'cid' : cid,
     'created_at' : createdAt,
-    'updated_at' : updatedAt
+    'updated_at' : updatedAt,
+    'subcategory_name' : subcategoryName
   };
 }
 
 class SubCategoryMostLink {
   final int? id;
-  final int? userId;
+  final String? title;
+  final String? name;
+  final String? categoryName;
+  final String? subCategoryName;
   final String? image;
   final String? audio;
-  final String? title;
-  final String? createdAt;
-  final String? updatedAt;
-  final int? cid;
-  final int? sid;
-  final int? lid;
+  final int? totalLike;
+  final int? like;
 
   SubCategoryMostLink({
     this.id,
-    this.userId,
+    this.title,
+    this.name,
+    this.categoryName,
+    this.subCategoryName,
     this.image,
     this.audio,
-    this.title,
-    this.createdAt,
-    this.updatedAt,
-    this.cid,
-    this.sid,
-    this.lid,
+    this.totalLike,
+    this.like,
   });
 
   SubCategoryMostLink.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
-      userId = json['user_id'] as int?,
+      title = json['title'] as String?,
+      name = json['name'] as String?,
+      categoryName = json['category_name'] as String?,
+      subCategoryName = json['sub_category_name'] as String?,
       image = json['image'] as String?,
       audio = json['audio'] as String?,
-      title = json['title'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?,
-      cid = json['cid'] as int?,
-      sid = json['sid'] as int?,
-      lid = json['lid'] as int?;
+      totalLike = json['total_like'] as int?,
+      like = json['like'] as int?;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
-    'user_id' : userId,
+    'title' : title,
+    'name' : name,
+    'category_name' : categoryName,
+    'sub_category_name' : subCategoryName,
     'image' : image,
     'audio' : audio,
-    'title' : title,
-    'created_at' : createdAt,
-    'updated_at' : updatedAt,
-    'cid' : cid,
-    'sid' : sid,
-    'lid' : lid
+    'total_like' : totalLike,
+    'like' : like
   };
 }

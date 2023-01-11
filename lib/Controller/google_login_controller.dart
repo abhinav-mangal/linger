@@ -36,7 +36,6 @@ class GoogleLoginController extends GetxController {
       }
     } finally {
       isLoading(false);
-      FlushBarNotification.showSnack(title: "Login Failed");
     }
   }
 }

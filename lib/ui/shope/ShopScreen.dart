@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,7 @@ import 'package:linger/ui/shope/views/cart_count_view.dart';
 import 'package:linger/ui/shope/views/category_view.dart';
 import 'package:linger/ui/shope/views/product_title_view.dart';
 import 'package:linger/ui/shope/views/product_view.dart';
+import 'package:linger/ui/shope/views/search.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Basepackage/baseclass.dart';
@@ -27,7 +27,6 @@ import '../../Utils/CustomEdits.dart';
 import '../../Utils/colors.dart';
 import '../../Utils/customText.dart';
 import '../../data/model/shop_dashboard_model/shop_product.dart';
-import '../../data/model/shop_dashboard_model/shop_product_category.dart';
 import '../widgets/screen_conatiner.dart';
 import 'artile_list_screen.dart';
 import 'categoryscreen.dart';
@@ -177,6 +176,12 @@ class _ShopScreenState extends State<ShopScreen> with baseclass {
                     alignment: Alignment.center,
                     child: CustomEditText(
                       fillColor: Colors.black12,
+                      readOnly: true,
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchPage(product: state
+                                                  .flashSaleProduct!))),
                       prefixiconwidget: MyAssetImage(
                         imageName: "ic_search.svg",
                         marginvalue: const EdgeInsets.all(10),
@@ -386,8 +391,8 @@ class _ShopScreenState extends State<ShopScreen> with baseclass {
                                     children: List.generate(
                                         state.flashSaleProduct?.length ?? 0,
                                         (index) => ProductView(
-                                              product:
-                                                  state.mostLikeProduct![index],
+                                              product: state
+                                                  .flashSaleProduct![index],
                                               onProductUpdate: (value) {},
                                             )),
                                   ),

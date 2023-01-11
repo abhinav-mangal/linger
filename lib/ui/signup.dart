@@ -107,13 +107,13 @@ class _SignUpState extends State<SignUp> with baseclass {
                                 builder: (context) => const MobileScreen()));
                           }, getColorFromHex(ColorConstants.greycolor), false),
                         ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
-                          decoration: dec,
-                          child: socialmediabutton('Glogo.png', "Google", () {
-                            profileCubit.signUpWithGoogle(context);
-                          }, getColorFromHex(ColorConstants.greycolor), false),
-                        ),
+                        // Container(
+                        //   margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
+                        //   decoration: dec,
+                        //   child: socialmediabutton('Glogo.png', "Google", () {
+                        //     profileCubit.signUpWithGoogle(context);
+                        //   }, getColorFromHex(ColorConstants.greycolor), false),
+                        // ),
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 2.h, 0, 1.h),
                           decoration: dec,

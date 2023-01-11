@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:linger/models/sukoon_model.dart';
-import 'package:rxdart/rxdart.dart';
 
 class SukunPlayAudio extends StatefulWidget {
   final SukoonData data;
@@ -19,7 +18,44 @@ class _SukunPlayAudioState extends State<SukunPlayAudio> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final duration = await player.setUrl(widget.data.audio!);
+      // if (player.playing) {
+      //   // final duration = await player.setUrl(widget.data.audio!);
+
+      // }
+      // Catching errors at load time
+      try {
+        await player.setUrl("https://s3.amazonaws.com/404-file.mp3");
+      } on PlayerException catch (e) {
+        // iOS/macOS: maps to NSError.code
+        // Android: maps to ExoPlayerException.type
+        // Web: maps to MediaError.code
+        // Linux/Windows: maps to PlayerErrorCode.index
+        print("Error code: ${e.code}");
+        // iOS/macOS: maps to NSError.localizedDescription
+        // Android: maps to ExoPlaybackException.getMessage()
+        // Web/Linux: a generic message
+        // Windows: MediaPlayerError.message
+        print("Error message: ${e.message}");
+      } on PlayerInterruptedException catch (e) {
+        // This call was interrupted since another audio source was loaded or the
+        // player was stopped or disposed before this audio source could complete
+        // loading.
+        print("Connection aborted: ${e.message}");
+      } catch (e) {
+        // Fallback for all other errors
+        print('An error occured: $e');
+      }
+
+// Catching errors during playback (e.g. lost network connection)
+      player.playbackEventStream.listen((event) {},
+          onError: (Object e, StackTrace st) {
+        if (e is PlayerException) {
+          print('Error code: ${e.code}');
+          print('Error message: ${e.message}');
+        } else {
+          print('An error occurred: $e');
+        }
+      });
     });
     super.initState();
   }
@@ -148,7 +184,7 @@ class _SukunPlayAudioState extends State<SukunPlayAudio> {
                                     setState(() {
                                       isvisible = !isvisible;
                                     });
-                                    await player.play().then((value) {});
+                                    await player.play();
                                   } else if (isvisible == true) {
                                     setState(() {
                                       isvisible = !isvisible;

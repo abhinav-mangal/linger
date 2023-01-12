@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -17,8 +16,7 @@ import 'package:linger/data/model/user_home_reponse_model.dart';
 import 'package:linger/locator.dart';
 import 'package:linger/router/app_routes.gr.dart';
 import 'package:linger/router/route_names.dart';
-import 'package:linger/ui/AlQuran/AlQuranScreen.dart';
-import 'package:linger/ui/Sunnat/FeedScreen.dart';
+import 'package:linger/ui/ProfileFollowScreen.dart';
 import 'package:linger/ui/all_prayers_screen.dart';
 import 'package:linger/ui/widgets/animation_view.dart';
 import 'package:lottie/lottie.dart';
@@ -27,7 +25,6 @@ import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:share_plus/share_plus.dart';
 import '../Controller/hijri_controller.dart';
-import 'Calendar/my_calendar_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -177,7 +174,8 @@ class _HomeScreenState extends State<HomeScreen>
                                               String date =
                                                   DateFormat("dd-MM-yyyy")
                                                       .format(dateTime);
-                                                      controller.hijiriDateConverter(date);
+                                              controller
+                                                  .hijiriDateConverter(date);
                                               return Text(
                                                 controller.hijiriDate,
                                                 style: TextStyle(
@@ -649,51 +647,63 @@ class _HomeScreenState extends State<HomeScreen>
                   valueListenable: currentPage,
                   builder: (context, value, child) {
                     return homeRes?.perOfTheDay != null
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                                Container(
-                                    padding:
-                                        EdgeInsets.fromLTRB(4.w, 1.h, 4.w, 1.h),
-                                    alignment: Alignment.topLeft,
-                                    child: Row(children: [
-                                      Container(
-                                        height: 6.67.w, width: 6.67.w,
-                                        padding: EdgeInsets.all(2.w),
-                                        margin:
-                                            EdgeInsets.only(right: getW(10)),
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    "${homeRes?.perOfTheDay![currentPage.value].profileImage}"))),
-                                        // child: const Icon(
-                                        //   Icons.calendar_today_outlined,
-                                        //   color: Colors.blue,
-                                        // ),
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            "${homeRes?.perOfTheDay![currentPage.value].name}",
-                                            style: TextStyle(
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(width: 5),
-                                      homeRes?.perOfTheDay![currentPage.value]
-                                                  .primeStatus ==
-                                              1
-                                          ? const Icon(
-                                              Icons.verified,
-                                              color: Colors.blue,
-                                              size: 20)
-                                          : Container()
-                                    ])),
-                              ])
+                        ? InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfileFollowScreen(
+                                            name: homeRes
+                                                ?.perOfTheDay![
+                                                    currentPage.value]
+                                                .name,
+                                                id: homeRes
+                                                ?.perOfTheDay![
+                                                    currentPage.value]
+                                                .userId
+                                          )));
+                            },
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      padding: EdgeInsets.fromLTRB(
+                                          4.w, 1.h, 4.w, 1.h),
+                                      alignment: Alignment.topLeft,
+                                      child: Row(children: [
+                                        Container(
+                                          height: 6.67.w, width: 6.67.w,
+                                          padding: EdgeInsets.all(2.w),
+                                          margin:
+                                              EdgeInsets.only(right: getW(10)),
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "${homeRes?.perOfTheDay![currentPage.value].profileImage}"))),
+                                          // child: const Icon(
+                                          //   Icons.calendar_today_outlined,
+                                          //   color: Colors.blue,
+                                          // ),
+                                        ),
+                                        Text(
+                                          "${homeRes?.perOfTheDay![currentPage.value].name}",
+                                          style: TextStyle(
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        homeRes?.perOfTheDay![currentPage.value]
+                                                    .primeStatus ==
+                                                1
+                                            ? const Icon(Icons.verified,
+                                                color: Colors.blue, size: 20)
+                                            : Container()
+                                      ])),
+                                ]),
+                          )
                         : Container();
                   }),
               homeRes != null

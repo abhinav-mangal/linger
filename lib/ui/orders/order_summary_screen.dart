@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:linger/cubits/profile_cubit/profile_cubit.dart';
 import 'package:linger/cubits/shop/shop_cubit.dart';
 import 'package:linger/ui/orders/view/order_item_view.dart';
@@ -361,7 +362,16 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                           subtitle: Padding(
                             padding: const EdgeInsets.only(top: 4.0),
                             child: CustomText(
-                              text: 'Est. delivery by Apr 22 - Apr 27',
+                              text:
+                                  "Est. delivery by ${DateFormat("MMM dd").format(DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day + 4,
+                              ))} - ${DateFormat("MMM dd").format(DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day + 6,
+                              ))}",
                               familytype: 1,
                               linecount: 1,
                               textcolor:
@@ -778,23 +788,21 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen>
                                   desc: _getPaymentDesc(state),
                                 );
                               } else {
-                                await shopcubit.createOrder(
-                                  context,
-                                  address:
-                                      "${shopcubit.state.myOrderAddress?.data![0].address}",
-                                  paymentMethod: "cod",
-                                  paymentStatus: "unpaid",
-                                  shippingTotal:
-                                      "${shopcubit.state.orderSummaryModel?.data?.shippingAmount}",
-                                  subTotal:
-                                      "${shopcubit.state.orderSummaryModel?.data?.subTotal}",
-                                  total:
-                                      "${shopcubit.state.orderSummaryModel?.data?.total}",
-                                  couponCode: couponApplied
-                                      ? couponController.text
-                                      : "",
-                                      paymentId: ""
-                                );
+                                await shopcubit.createOrder(context,
+                                    address:
+                                        "${shopcubit.state.myOrderAddress?.data![0].address}",
+                                    paymentMethod: "cod",
+                                    paymentStatus: "unpaid",
+                                    shippingTotal:
+                                        "${shopcubit.state.orderSummaryModel?.data?.shippingAmount}",
+                                    subTotal:
+                                        "${shopcubit.state.orderSummaryModel?.data?.subTotal}",
+                                    total:
+                                        "${shopcubit.state.orderSummaryModel?.data?.total}",
+                                    couponCode: couponApplied
+                                        ? couponController.text
+                                        : "",
+                                    paymentId: "");
 
                                 // Navigator.push(
                                 //     context,

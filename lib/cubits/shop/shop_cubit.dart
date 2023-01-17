@@ -23,6 +23,7 @@ import '../../data/model/my_cart/my_cart.dart';
 import '../../data/model/my_order/morder.dart';
 import '../../data/model/order_summary_model/order_summary_model..dart';
 import '../../data/model/product_detail_model/seeallproductsdetailmodel.dart';
+import '../../ui/orders/ordersscreen.dart';
 part 'shop_state.dart';
 
 class ShopCubit extends Cubit<ShopState> {
@@ -279,6 +280,12 @@ class ShopCubit extends Cubit<ShopState> {
       return false;
     }, (r) async {
       await getMyOrders();
+      final router = getItInjector<AppRouter>();
+      AppRouter.getParameters(Index: 0);
+      router.pushAndPopUntil(const HomeRoute(index: 0),
+          predicate: (Route<dynamic> route) {
+        return false;
+      });
       return true;
     });
     return null;

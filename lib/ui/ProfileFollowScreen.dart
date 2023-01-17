@@ -583,131 +583,131 @@ class _ProfileFollowScreenState extends State<ProfileFollowScreen>
                     //     ],
                     //   ),
                     // ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 10,
-                      ),
-                      margin: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                            width: 1,
-                            color: getColorFromHex(
-                                ColorConstants.greyBackgroundScreen)),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Achievements',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 8,
-                                    right: 8,
-                                    top: 12,
-                                    bottom: 12,
-                                  ),
-                                  margin: const EdgeInsets.all(5),
-                                  color: getColorFromHex(
-                                      ColorConstants.greyBackgroundScreen),
-                                  child: Column(
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/flag.png',
-                                        height: 48,
-                                        width: 48,
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      const Text(
-                                        'Achiever',
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.grey),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 8,
-                                    right: 8,
-                                    top: 12,
-                                    bottom: 12,
-                                  ),
-                                  margin: const EdgeInsets.all(5),
-                                  color: getColorFromHex(
-                                      ColorConstants.greyBackgroundScreen),
-                                  child: Column(
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/badge.png',
-                                        height: 48,
-                                        width: 48,
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      const Text(
-                                        'Glorious',
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.grey),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 8,
-                                    right: 8,
-                                    top: 12,
-                                    bottom: 12,
-                                  ),
-                                  margin: const EdgeInsets.all(5),
-                                  color: getColorFromHex(
-                                      ColorConstants.greyBackgroundScreen),
-                                  child: Column(
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/medal.png',
-                                        height: 48,
-                                        width: 48,
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      const Text(
-                                        'Collector',
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.grey),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ]),
-                    ),
+                    // Container(
+                    //   padding: const EdgeInsets.symmetric(
+                    //     horizontal: 10,
+                    //     vertical: 10,
+                    //   ),
+                    //   margin: const EdgeInsets.all(20),
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     border: Border.all(
+                    //         width: 1,
+                    //         color: getColorFromHex(
+                    //             ColorConstants.greyBackgroundScreen)),
+                    //     borderRadius: const BorderRadius.all(
+                    //       Radius.circular(10),
+                    //     ),
+                    //   ),
+                    //   child: Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         const Text(
+                    //           'Achievements',
+                    //           style:
+                    //               TextStyle(fontSize: 20, color: Colors.black),
+                    //         ),
+                    //         const SizedBox(
+                    //           height: 6,
+                    //         ),
+                    //         Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           crossAxisAlignment: CrossAxisAlignment.center,
+                    //           children: [
+                    //             Container(
+                    //               padding: const EdgeInsets.only(
+                    //                 left: 8,
+                    //                 right: 8,
+                    //                 top: 12,
+                    //                 bottom: 12,
+                    //               ),
+                    //               margin: const EdgeInsets.all(5),
+                    //               color: getColorFromHex(
+                    //                   ColorConstants.greyBackgroundScreen),
+                    //               child: Column(
+                    //                 children: [
+                    //                   Image.asset(
+                    //                     'assets/images/flag.png',
+                    //                     height: 48,
+                    //                     width: 48,
+                    //                   ),
+                    //                   const SizedBox(
+                    //                     height: 5,
+                    //                   ),
+                    //                   const Text(
+                    //                     'Achiever',
+                    //                     style: TextStyle(
+                    //                         fontSize: 17,
+                    //                         fontWeight: FontWeight.w400,
+                    //                         color: Colors.grey),
+                    //                   )
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //             Container(
+                    //               padding: const EdgeInsets.only(
+                    //                 left: 8,
+                    //                 right: 8,
+                    //                 top: 12,
+                    //                 bottom: 12,
+                    //               ),
+                    //               margin: const EdgeInsets.all(5),
+                    //               color: getColorFromHex(
+                    //                   ColorConstants.greyBackgroundScreen),
+                    //               child: Column(
+                    //                 children: [
+                    //                   Image.asset(
+                    //                     'assets/images/badge.png',
+                    //                     height: 48,
+                    //                     width: 48,
+                    //                   ),
+                    //                   const SizedBox(
+                    //                     height: 5,
+                    //                   ),
+                    //                   const Text(
+                    //                     'Glorious',
+                    //                     style: TextStyle(
+                    //                         fontSize: 17,
+                    //                         fontWeight: FontWeight.w400,
+                    //                         color: Colors.grey),
+                    //                   )
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //             Container(
+                    //               padding: const EdgeInsets.only(
+                    //                 left: 8,
+                    //                 right: 8,
+                    //                 top: 12,
+                    //                 bottom: 12,
+                    //               ),
+                    //               margin: const EdgeInsets.all(5),
+                    //               color: getColorFromHex(
+                    //                   ColorConstants.greyBackgroundScreen),
+                    //               child: Column(
+                    //                 children: [
+                    //                   Image.asset(
+                    //                     'assets/images/medal.png',
+                    //                     height: 48,
+                    //                     width: 48,
+                    //                   ),
+                    //                   const SizedBox(
+                    //                     height: 5,
+                    //                   ),
+                    //                   const Text(
+                    //                     'Collector',
+                    //                     style: TextStyle(
+                    //                         fontSize: 17,
+                    //                         fontWeight: FontWeight.w400,
+                    //                         color: Colors.grey),
+                    //                   )
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ]),
+                    // ),
                   ],
                 ),
               ),

@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linger/Utils/colors.dart';
 import 'package:linger/cubits/shop/shop_cubit.dart';
-import 'package:linger/data/model/shop_dashboard_model/shop_product.dart';
 import 'package:linger/ui/orders/order_status_screen.dart';
-import 'package:linger/ui/orders/order_summary_screen.dart';
 import 'package:linger/ui/orders/view/product_order_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -63,6 +60,9 @@ class _OrdersScreenState extends State<OrdersScreen>
       length: 4,
       child: BlocBuilder<ShopCubit, ShopState>(
         builder: (context, state) {
+          List? orderList = state.myOrder!.data!.isEmpty
+              ? []
+              : List.from(state.myOrder!.data!.reversed);
           if (state.myOrder == null) {
             return const ScreenContainer(
               title: '    ',
@@ -155,8 +155,8 @@ class _OrdersScreenState extends State<OrdersScreen>
                       color: getColorFromHex(ColorConstants.greycolor)
                           .withOpacity(0.1),
                       child: Column(
-                        children: state.myOrder!.data
-                                ?.where((el) =>
+                        children: orderList
+                                .where((el) =>
                                     (el.order?.isNotEmpty ?? false) &&
                                     (el.productId != 0))
                                 .toList()
@@ -236,8 +236,8 @@ class _OrdersScreenState extends State<OrdersScreen>
                       color: getColorFromHex(ColorConstants.greycolor)
                           .withOpacity(0.1),
                       child: Column(
-                        children: state.myOrder!.data
-                                ?.where((el) =>
+                        children: orderList
+                                .where((el) =>
                                     (el.order?.isNotEmpty ?? false) &&
                                     (el.orderStatus == 1) &&
                                     (el.productId != 0))

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:linger/data/model/my_order/datum.dart';
-import 'package:linger/ui/orders/myOrderReviewScreen.dart';
-import 'package:linger/ui/orders/yourreview.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../Basepackage/baseclass.dart';
 import '../../../Utils/AssetImage.dart';
@@ -9,7 +7,6 @@ import '../../../Utils/colors.dart';
 import '../../../Utils/customText.dart';
 import '../../../data/model/shop_dashboard_model/shop_model.dart';
 import '../../shope/product_detail_screen.dart';
-import '../../shope/review_product_screen.dart';
 import '../reviewscreen.dart';
 import 'order_item_list_view.dart';
 
@@ -22,8 +19,8 @@ Map<String, int> paymentStatusInNumbers = {
   "Unpaid": 5
 };
 
-class ProductOrderView extends StatelessWidget with baseclass {
-  ProductOrderView({
+class ProductOrderView extends StatefulWidget {
+  const ProductOrderView({
     Key? key,
     this.shopProduct,
     required this.orderNumber,
@@ -44,18 +41,29 @@ class ProductOrderView extends StatelessWidget with baseclass {
   final Widget? totalCost;
   final Widget? buttonUI;
   final bool? showOrderIcon;
+
+  @override
+  State<ProductOrderView> createState() => _ProductOrderViewState();
+}
+
+class _ProductOrderViewState extends State<ProductOrderView> with baseclass {
   late ShopProduct shopProductById;
+
   getShopProduct() {
-    if (shopProduct != null) {
-      shopProductById = shopProduct!
-          .where((element) => ((element.id) == (items!.productId)))
-          .first;
+    if (widget.shopProduct != null) {
+      shopProductById = widget.shopProduct![0];
+      // .where((element) => ((element.id) == (widget.items!.productId))).first;
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     getShopProduct();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 0.h, bottom: 1.h),
       color: getColorFromHex(ColorConstants.white),
@@ -66,17 +74,17 @@ class ProductOrderView extends StatelessWidget with baseclass {
             height: 1.h,
           ),
           Visibility(
-            visible: showOrderIcon ?? true,
+            visible: widget.showOrderIcon ?? true,
             child: Row(
               children: [
                 Visibility(
-                  visible: showOrderIcon ?? true,
+                  visible: widget.showOrderIcon ?? true,
                   child: SizedBox(
                     width: 2.w,
                   ),
                 ),
                 Visibility(
-                  visible: showOrderIcon ?? true,
+                  visible: widget.showOrderIcon ?? true,
                   child: MyAssetImage(
                     imageName: 'orders.png',
                     icontint: ColorConstants.greycolor,
@@ -85,13 +93,13 @@ class ProductOrderView extends StatelessWidget with baseclass {
                   ),
                 ),
                 Visibility(
-                  visible: showOrderIcon ?? false,
+                  visible: widget.showOrderIcon ?? false,
                   child: SizedBox(
                     width: 2.w,
                   ),
                 ),
                 CustomText(
-                  text: orderNumber,
+                  text: widget.orderNumber,
                   familytype: 2,
                   linecount: 1,
                   textcolor: getColorFromHex(ColorConstants.greycolor),
@@ -101,10 +109,10 @@ class ProductOrderView extends StatelessWidget with baseclass {
                 ),
                 const Spacer(),
                 CustomText(
-                  text: statusName,
+                  text: widget.statusName,
                   familytype: 2,
                   linecount: 1,
-                  textcolor: statusColor,
+                  textcolor: widget.statusColor,
                   textsize: 16.sp,
                   align: Alignment.center,
                 ),
@@ -115,17 +123,17 @@ class ProductOrderView extends StatelessWidget with baseclass {
             ),
           ),
           Visibility(
-              visible: !showOrderIcon!,
+              visible: !widget.showOrderIcon!,
               child: Row(
                 children: [
                   Visibility(
-                    visible: !showOrderIcon!,
+                    visible: !widget.showOrderIcon!,
                     child: SizedBox(
                       width: 2.w,
                     ),
                   ),
                   CustomText(
-                    text: "Product($orderNumber)",
+                    text: "Product(${widget.orderNumber})",
                     familytype: 2,
                     linecount: 1,
                     textcolor: getColorFromHex(ColorConstants.black),
@@ -138,9 +146,9 @@ class ProductOrderView extends StatelessWidget with baseclass {
           SizedBox(
             height: 1.h,
           ),
-          itemViews ??
+          widget.itemViews ??
               ItemListView(
-                  orderList: items ??
+                  orderList: widget.items ??
                       const OrderList(
                         order: [],
                         orderid: '1',
@@ -149,21 +157,22 @@ class ProductOrderView extends StatelessWidget with baseclass {
             height: 1.h,
           ),
           Visibility(
-            visible: totalCost != null,
-            child: totalCost ?? const SizedBox(),
+            visible: widget.totalCost != null,
+            child: widget.totalCost ?? const SizedBox(),
           ),
           SizedBox(
             height: 1.h,
           ),
           Visibility(
-            visible: buttonUI != null || statusName.toString() == 'unpaid',
-            child: buttonUI ?? const SizedBox(),
+            visible: widget.buttonUI != null ||
+                widget.statusName.toString() == 'unpaid',
+            child: widget.buttonUI ?? const SizedBox(),
           ),
           SizedBox(height: 1.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              paymentStatusInNumbers[statusName] == 3
+              paymentStatusInNumbers[widget.statusName] == 3
                   ? GestureDetector(
                       onTap: () {
                         Navigator.push(context,
@@ -192,8 +201,8 @@ class ProductOrderView extends StatelessWidget with baseclass {
               SizedBox(
                 width: 3.w,
               ),
-              paymentStatusInNumbers[statusName] == 3 ||
-                      paymentStatusInNumbers[statusName] == 4
+              paymentStatusInNumbers[widget.statusName] == 3 ||
+                      paymentStatusInNumbers[widget.statusName] == 4
                   ? GestureDetector(
                       onTap: () {
                         Navigator.push(

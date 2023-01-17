@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:linger/Basepackage/baseclass.dart';
 import 'package:linger/locator.dart';
 import 'package:linger/router/app_routes.gr.dart';
@@ -38,8 +39,8 @@ class _OrderCancelScreenState extends State<OrderCancelScreen> with baseclass {
     "Wrong Quantity",
     "Incorrect address",
     "Placed by mistake",
-    "Wrong product",
-    "Wrong product",
+    // "Wrong product",
+    // "Wrong product",
   ];
 
   @override
@@ -90,12 +91,12 @@ class _OrderCancelScreenState extends State<OrderCancelScreen> with baseclass {
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(children: [
             Image.asset("assets/images/order_cancel_prop.png"),
-            const SizedBox(height: 25),
-            const Text("Choose Reason", style: TextStyle(fontSize: 24)),
-            const SizedBox(height: 25),
+            const SizedBox(height: 10),
+            const Text("Choose Reason", style: TextStyle(fontSize: 28)),
+            const SizedBox(height: 30),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.18),
@@ -120,35 +121,40 @@ class _OrderCancelScreenState extends State<OrderCancelScreen> with baseclass {
                 },
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 40),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                FloatingActionButton.extended(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFDE2222),
-                  label: const Text("Cancel"),
+                SizedBox(
+                  height: Get.height * 0.075,
+                  width: Get.width * 0.3,
+                  child: FloatingActionButton.extended(
+                    heroTag: "1",
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    elevation: 0,
+                    backgroundColor: const Color(0xFFDE2222),
+                    label: const Text("Cancel"),
+                  ),
                 ),
                 const SizedBox(width: 20),
-                FloatingActionButton.extended(
-                  onPressed: () async {
-                    await shopcubit.cancelOrderById(context, widget.oid!);
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const OrdersScreen()),
-                        (Route<dynamic> route) => true);
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  elevation: 0,
-                  backgroundColor: const Color(0xFF1AA348),
-                  label: const Text("Confirm"),
+                SizedBox(
+                  height: Get.height * 0.075,
+                  width: Get.width * 0.3,
+                  child: FloatingActionButton.extended(
+                    heroTag: "2",
+                    onPressed: () async {
+                      await shopcubit.cancelOrderById(context, widget.oid!);
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    elevation: 0,
+                    backgroundColor: const Color(0xFF1AA348),
+                    label: const Text("Confirm"),
+                  ),
                 ),
               ],
             )

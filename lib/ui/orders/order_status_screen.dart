@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:linger/Basepackage/baseclass.dart';
 import 'package:linger/locator.dart';
 import 'package:linger/router/app_routes.gr.dart';
@@ -572,7 +573,15 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> with baseclass {
                 height: 10,
               ),
               CustomText(
-                text: 'Est. delivery by Apr 22 - Apr 27',
+                text: "Est. delivery by ${DateFormat("MMM dd").format(DateTime(
+                  DateTime.now().year,
+                  DateTime.now().month,
+                  DateTime.now().day + 4,
+                ))} - ${DateFormat("MMM dd").format(DateTime(
+                  DateTime.now().year,
+                  DateTime.now().month,
+                  DateTime.now().day + 6,
+                ))}",
                 familytype: 1,
                 linecount: 1,
                 textcolor:
